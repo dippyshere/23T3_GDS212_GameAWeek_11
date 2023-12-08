@@ -98,7 +98,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000004, guid: f9747998359df0e4198d2abf3b7fbbbc,
+  m_LightingDataAsset: {fileID: 112000000, guid: f9747998359df0e4198d2abf3b7fbbbc,
     type: 2}
   m_LightingSettings: {fileID: 4890085278179872738, guid: 304f5407f1505f44b98b9bdcf093b9d4,
     type: 2}
@@ -3194,6 +3194,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 108555530808950328, guid: dd00a4ca6148a08459372d1937b26f1e,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: NaN
+      objectReference: {fileID: 0}
+    - target: {fileID: 108555530808950328, guid: dd00a4ca6148a08459372d1937b26f1e,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 108555530808950328, guid: dd00a4ca6148a08459372d1937b26f1e,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: 1.05e-43
+      objectReference: {fileID: 0}
+    - target: {fileID: 108555530808950328, guid: dd00a4ca6148a08459372d1937b26f1e,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4817,7 +4837,7 @@ PrefabInstance:
     - target: {fileID: 108555530808950328, guid: dd00a4ca6148a08459372d1937b26f1e,
         type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: 5.86e-43
+      value: 3e-45
       objectReference: {fileID: 0}
     - target: {fileID: 108555530808950328, guid: dd00a4ca6148a08459372d1937b26f1e,
         type: 3}
@@ -4827,7 +4847,7 @@ PrefabInstance:
     - target: {fileID: 108555530808950328, guid: dd00a4ca6148a08459372d1937b26f1e,
         type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: 0
+      value: 1e-45
       objectReference: {fileID: 0}
     - target: {fileID: 108555530808950328, guid: dd00a4ca6148a08459372d1937b26f1e,
         type: 3}
@@ -10979,7 +10999,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.5
+  m_Intensity: 0
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -11024,7 +11044,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 5000
   m_UseColorTemperature: 1
-  m_BoundingSphereOverride: {x: 0, y: 6e-44, z: 7e-45, w: 1.9566e-41}
+  m_BoundingSphereOverride: {x: 0, y: 6e-44, z: 3.6e-44, w: 2.5002e-41}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -15288,17 +15308,22 @@ PrefabInstance:
     - target: {fileID: 108555530808950328, guid: dd00a4ca6148a08459372d1937b26f1e,
         type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: -2.7892822e+29
+      value: 1.1441936e+26
+      objectReference: {fileID: 0}
+    - target: {fileID: 108555530808950328, guid: dd00a4ca6148a08459372d1937b26f1e,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: NaN
       objectReference: {fileID: 0}
     - target: {fileID: 108555530808950328, guid: dd00a4ca6148a08459372d1937b26f1e,
         type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: -1.7240424e-28
+      value: -0.0003524305
       objectReference: {fileID: 0}
     - target: {fileID: 108555530808950328, guid: dd00a4ca6148a08459372d1937b26f1e,
         type: 3}
       propertyPath: m_BoundingSphereOverride.z
-      value: 7.34e-43
+      value: NaN
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -25206,17 +25231,22 @@ PrefabInstance:
     - target: {fileID: 108555530808950328, guid: dd00a4ca6148a08459372d1937b26f1e,
         type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: 1e-45
+      value: 3e-45
+      objectReference: {fileID: 0}
+    - target: {fileID: 108555530808950328, guid: dd00a4ca6148a08459372d1937b26f1e,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 108555530808950328, guid: dd00a4ca6148a08459372d1937b26f1e,
         type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: -1.7240424e-28
+      value: 1e-45
       objectReference: {fileID: 0}
     - target: {fileID: 108555530808950328, guid: dd00a4ca6148a08459372d1937b26f1e,
         type: 3}
       propertyPath: m_BoundingSphereOverride.z
-      value: 7.34e-43
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -25759,17 +25789,22 @@ PrefabInstance:
     - target: {fileID: 108555530808950328, guid: dd00a4ca6148a08459372d1937b26f1e,
         type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: -0.00000090326654
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 108555530808950328, guid: dd00a4ca6148a08459372d1937b26f1e,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: 2.5e-44
       objectReference: {fileID: 0}
     - target: {fileID: 108555530808950328, guid: dd00a4ca6148a08459372d1937b26f1e,
         type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: -1.7240424e-28
+      value: 2.5204e-41
       objectReference: {fileID: 0}
     - target: {fileID: 108555530808950328, guid: dd00a4ca6148a08459372d1937b26f1e,
         type: 3}
       propertyPath: m_BoundingSphereOverride.z
-      value: 7.34e-43
+      value: 8.94e-43
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -28426,7 +28461,7 @@ PrefabInstance:
     - target: {fileID: 108555530808950328, guid: dd00a4ca6148a08459372d1937b26f1e,
         type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: 1e-45
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 108555530808950328, guid: dd00a4ca6148a08459372d1937b26f1e,
         type: 3}
@@ -28436,12 +28471,12 @@ PrefabInstance:
     - target: {fileID: 108555530808950328, guid: dd00a4ca6148a08459372d1937b26f1e,
         type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: 0
+      value: 42
       objectReference: {fileID: 0}
     - target: {fileID: 108555530808950328, guid: dd00a4ca6148a08459372d1937b26f1e,
         type: 3}
       propertyPath: m_BoundingSphereOverride.z
-      value: 0
+      value: 11.333333
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -29602,7 +29637,7 @@ PrefabInstance:
     - target: {fileID: 108555530808950328, guid: dd00a4ca6148a08459372d1937b26f1e,
         type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: 1e-45
+      value: -2.563985e+14
       objectReference: {fileID: 0}
     - target: {fileID: 108555530808950328, guid: dd00a4ca6148a08459372d1937b26f1e,
         type: 3}
@@ -29612,12 +29647,12 @@ PrefabInstance:
     - target: {fileID: 108555530808950328, guid: dd00a4ca6148a08459372d1937b26f1e,
         type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: -1.7240424e-28
+      value: 4.2173015e+9
       objectReference: {fileID: 0}
     - target: {fileID: 108555530808950328, guid: dd00a4ca6148a08459372d1937b26f1e,
         type: 3}
       propertyPath: m_BoundingSphereOverride.z
-      value: 7.34e-43
+      value: -0.000000019845539
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -39705,17 +39740,22 @@ PrefabInstance:
     - target: {fileID: 108555530808950328, guid: dd00a4ca6148a08459372d1937b26f1e,
         type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: 1e-45
+      value: -4.6666665
       objectReference: {fileID: 0}
     - target: {fileID: 108555530808950328, guid: dd00a4ca6148a08459372d1937b26f1e,
         type: 3}
       propertyPath: m_BoundingSphereOverride.x
-      value: 7.34e-43
+      value: NaN
       objectReference: {fileID: 0}
     - target: {fileID: 108555530808950328, guid: dd00a4ca6148a08459372d1937b26f1e,
         type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: 0
+      value: 0.30078125
+      objectReference: {fileID: 0}
+    - target: {fileID: 108555530808950328, guid: dd00a4ca6148a08459372d1937b26f1e,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: 0.3046875
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -50076,22 +50116,22 @@ PrefabInstance:
     - target: {fileID: 108555530808950328, guid: dd00a4ca6148a08459372d1937b26f1e,
         type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: 1.9420334e+31
+      value: 23187458
       objectReference: {fileID: 0}
     - target: {fileID: 108555530808950328, guid: dd00a4ca6148a08459372d1937b26f1e,
         type: 3}
       propertyPath: m_BoundingSphereOverride.x
-      value: NaN
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 108555530808950328, guid: dd00a4ca6148a08459372d1937b26f1e,
         type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: NaN
+      value: 9.774644e-19
       objectReference: {fileID: 0}
     - target: {fileID: 108555530808950328, guid: dd00a4ca6148a08459372d1937b26f1e,
         type: 3}
       propertyPath: m_BoundingSphereOverride.z
-      value: -0.000000019845539
+      value: 8.94e-43
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -53361,22 +53401,22 @@ PrefabInstance:
     - target: {fileID: 108555530808950328, guid: dd00a4ca6148a08459372d1937b26f1e,
         type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: 1.28e-43
+      value: 5.76e-43
       objectReference: {fileID: 0}
     - target: {fileID: 108555530808950328, guid: dd00a4ca6148a08459372d1937b26f1e,
         type: 3}
       propertyPath: m_BoundingSphereOverride.x
-      value: 7.34e-43
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 108555530808950328, guid: dd00a4ca6148a08459372d1937b26f1e,
         type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: -0.0000044848457
+      value: 803334660
       objectReference: {fileID: 0}
     - target: {fileID: 108555530808950328, guid: dd00a4ca6148a08459372d1937b26f1e,
         type: 3}
       propertyPath: m_BoundingSphereOverride.z
-      value: 7.34e-43
+      value: 8.94e-43
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -54219,22 +54259,22 @@ PrefabInstance:
     - target: {fileID: 108555530808950328, guid: dd00a4ca6148a08459372d1937b26f1e,
         type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: -0.000020465815
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 108555530808950328, guid: dd00a4ca6148a08459372d1937b26f1e,
         type: 3}
       propertyPath: m_BoundingSphereOverride.x
-      value: 0
+      value: -0.4054054
       objectReference: {fileID: 0}
     - target: {fileID: 108555530808950328, guid: dd00a4ca6148a08459372d1937b26f1e,
         type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: -1.7240424e-28
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 108555530808950328, guid: dd00a4ca6148a08459372d1937b26f1e,
         type: 3}
       propertyPath: m_BoundingSphereOverride.z
-      value: 7.34e-43
+      value: 0.000005722046
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -56846,22 +56886,22 @@ PrefabInstance:
     - target: {fileID: 108555530808950328, guid: dd00a4ca6148a08459372d1937b26f1e,
         type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: 1.28e-43
+      value: 8.56e-43
       objectReference: {fileID: 0}
     - target: {fileID: 108555530808950328, guid: dd00a4ca6148a08459372d1937b26f1e,
         type: 3}
       propertyPath: m_BoundingSphereOverride.x
-      value: 7.34e-43
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 108555530808950328, guid: dd00a4ca6148a08459372d1937b26f1e,
         type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: -0.000000043704148
+      value: 36907744
       objectReference: {fileID: 0}
     - target: {fileID: 108555530808950328, guid: dd00a4ca6148a08459372d1937b26f1e,
         type: 3}
       propertyPath: m_BoundingSphereOverride.z
-      value: 7.34e-43
+      value: 8.94e-43
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
