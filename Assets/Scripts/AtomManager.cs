@@ -10,8 +10,7 @@ public class AtomManager : MonoBehaviour
     [SerializeField, Tooltip("The hitbox size of the atom for registering player events")] private AtomSize atomSize = AtomSize.Small;
     [SerializeField, Tooltip("The thickness of the outline when the player is going to pickup this atom")] private float outlineHighlightThickness = 6f;
     [SerializeField, Tooltip("The thickness of the outline when the player is holding this atom")] private float outlinePickedupThickness = 4f;
-    [SerializeField, Tooltip("The material to use when placed")] private Material visibleMaterial;
-    [SerializeField, Tooltip("The material to use when being held")] private Material heldMaterial;
+    [SerializeField, Tooltip("The prefab to use to preview placement location")] private GameObject previewPrefab;
     [SerializeField, Tooltip("The collider that interacts with the player")] private Collider collider1;
     public Compound.AtomType atomType;
     public List<Transform> connectionPoints = new List<Transform>(4);
@@ -22,6 +21,8 @@ public class AtomManager : MonoBehaviour
     private float outlineDefaultThickness;
     private bool held = false;
     private float rotationOffset;
+    private GameObject preview;
+
     //public List<HingeJoint> hingeJoints;
     public List<GameObject> connections;
     public List<Compound.AtomType> connectedAtomTypes;
@@ -43,6 +44,8 @@ public class AtomManager : MonoBehaviour
         SnapToGrid();
         Invoke("SnapToGrid", 0.01f);
         outlineDefaultThickness = outline.OutlineWidth;
+        preview = Instantiate(previewPrefab, transform.position, Quaternion.identity);
+        preview.SetActive(false);
     }
 
     public void PickupAtom()
@@ -97,7 +100,7 @@ public class AtomManager : MonoBehaviour
         //hingeJointToPlayer.spring = new JointSpring() { spring = 10, damper = 1 };
         //hingeJointToPlayer.useLimits = true;
         //hingeJointToPlayer.limits = new JointLimits() { min = -10, max = 10 };
-        // SetHeld();
+        preview.SetActive(true);
     }
 
     public void DropAtom()
@@ -127,7 +130,7 @@ public class AtomManager : MonoBehaviour
         ConnectToConnector();
         collider1.enabled = true;
         Invoke("DropAtomTask", 0.02f);
-        // SetVisible();
+        preview.SetActive(false);
     }
 
     public void DropAtomTask()
@@ -151,12 +154,56 @@ public class AtomManager : MonoBehaviour
         ConnectToConnector();
     }
 
+    public void PushAtom(Vector3 direction)
+    {
+        StartCoroutine(pushAtomTask(direction));
+    }
+
+    private IEnumerator pushAtomTask(Vector3 direction)
+    {
+        StopCoroutine("PushAtom");
+        Debug.Log("Push atom");
+        Vector3 newPosition = transform.position + direction * gridSize;
+        float time = 0;
+        while (time < 0.2f)
+        {
+            time += Time.deltaTime;
+            transform.position = Vector3.Lerp(transform.position, newPosition, time / 0.2f);
+            yield return null;
+        }
+        SnapToGrid();
+    }
+
     private void Update()
     {
         if (held)
         {
             transform.position = playerController.pickupTargetOverhead.position;
             transform.rotation = Quaternion.Euler(0, playerController.transform.rotation.eulerAngles.y - 90, 0);
+            switch (atomSize)
+            {
+                case AtomSize.Small:
+                    float x = Mathf.Round(playerController.pickupTargetSmall.position.x / gridSize) * gridSize;
+                    float z = Mathf.Round(playerController.pickupTargetSmall.position.z / gridSize) * gridSize;
+                    preview.transform.position = new Vector3(x, yPosition, z);
+                    break;
+                case AtomSize.Medium:
+                    x = Mathf.Round(playerController.pickupTargetMedium.position.x / gridSize) * gridSize;
+                    z = Mathf.Round(playerController.pickupTargetMedium.position.z / gridSize) * gridSize;
+                    preview.transform.position = new Vector3(x, yPosition, z);
+                    break;
+                case AtomSize.Large:
+                    x = Mathf.Round(playerController.pickupTargetLarge.position.x / gridSize) * gridSize;
+                    z = Mathf.Round(playerController.pickupTargetLarge.position.z / gridSize) * gridSize;
+                    preview.transform.position = new Vector3(x, yPosition, z);
+                    break;
+                case AtomSize.VeryLarge:
+                    x = Mathf.Round(playerController.pickupTargetVeryLarge.position.x / gridSize) * gridSize;
+                    z = Mathf.Round(playerController.pickupTargetVeryLarge.position.z / gridSize) * gridSize;
+                    preview.transform.position = new Vector3(x, yPosition, z);
+                    break;
+            }
+            preview.transform.rotation = Quaternion.Euler(0, Mathf.Round(transform.rotation.eulerAngles.y / 90) * 90, 0);
         }
     }
 
@@ -168,26 +215,6 @@ public class AtomManager : MonoBehaviour
     public void UnhighlightAtom()
     {
         outline.OutlineWidth = outlineDefaultThickness;
-    }
-
-    private void SetVisible()
-    {
-        foreach (MeshRenderer meshRenderer in transform.Find("AtomParts").GetComponentsInChildren<MeshRenderer>())
-        {
-            Material[] materials = meshRenderer.materials;
-            materials[0] = visibleMaterial;
-            meshRenderer.materials = materials;
-        }
-    }
-
-    private void SetHeld()
-    {
-        foreach (MeshRenderer meshRenderer in transform.Find("AtomParts").GetComponentsInChildren<MeshRenderer>())
-        {
-            Material[] materials = meshRenderer.materials;
-            materials[0] = heldMaterial;
-            meshRenderer.materials = materials;
-        }
     }
 
     private void SetKinematicTrue()

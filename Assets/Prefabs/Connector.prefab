@@ -53,8 +53,8 @@ MonoBehaviour:
   m_UVBias: {x: 0, y: 0}
   m_DecalLayerMask: 1
   m_ScaleMode: 0
-  m_Offset: {x: 0, y: 0, z: 0.5}
-  m_Size: {x: 5, y: 9, z: 1}
+  m_Offset: {x: 0, y: 0, z: 10}
+  m_Size: {x: 5, y: 9, z: 20}
   m_FadeFactor: 1
 --- !u!1 &864979133598924458
 GameObject:
@@ -227,8 +227,8 @@ MonoBehaviour:
   atomSize: 1
   outlineHighlightThickness: 6
   outlinePickedupThickness: 4
-  visibleMaterial: {fileID: 2100000, guid: 17f6a2c3332f5b34b9b0a86a790a3e43, type: 2}
-  heldMaterial: {fileID: 2100000, guid: 7493eea669bdbe0419fa2a25731a5f0b, type: 2}
+  previewPrefab: {fileID: 4205137455202584449, guid: 4516ac2c7e7185b439650a29e88a1b99,
+    type: 3}
   collider1: {fileID: 1795228673953430711}
   atomType: 4
   connectionPoints:
