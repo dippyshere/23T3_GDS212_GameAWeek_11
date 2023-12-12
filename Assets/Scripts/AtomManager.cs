@@ -12,6 +12,7 @@ public class AtomManager : MonoBehaviour
     [SerializeField, Tooltip("The thickness of the outline when the player is holding this atom")] private float outlinePickedupThickness = 4f;
     [SerializeField, Tooltip("The material to use when placed")] private Material visibleMaterial;
     [SerializeField, Tooltip("The material to use when being held")] private Material heldMaterial;
+    [SerializeField, Tooltip("The collider that interacts with the player")] private Collider collider1;
     public Compound.AtomType atomType;
     public List<Transform> connectionPoints = new List<Transform>(4);
     private Rigidbody rigidBody => GetComponent<Rigidbody>();
@@ -19,7 +20,9 @@ public class AtomManager : MonoBehaviour
     private PlayerController playerController => GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     private HingeJoint hingeJointToPlayer;
     private float outlineDefaultThickness;
-    public List<HingeJoint> hingeJoints;
+    private bool held = false;
+    private float rotationOffset;
+    //public List<HingeJoint> hingeJoints;
     public List<GameObject> connections;
     public List<Compound.AtomType> connectedAtomTypes;
 
@@ -30,7 +33,7 @@ public class AtomManager : MonoBehaviour
         SnapToGrid();
         foreach (Transform connectionPoint in connectionPoints)
         {
-            hingeJoints.Add(null);
+            //hingeJoints.Add(null);
             connections.Add(null);
         }
     }
@@ -44,7 +47,67 @@ public class AtomManager : MonoBehaviour
 
     public void PickupAtom()
     {
+        held = true;
         outline.OutlineWidth = outlinePickedupThickness;
+        //switch (atomSize)
+        //{
+        //    case AtomSize.Small:
+        //        transform.position = playerController.pickupTargetSmall.position;
+        //        break;
+        //    case AtomSize.Medium:
+        //        transform.position = playerController.pickupTargetMedium.position;
+        //        break;
+        //    case AtomSize.Large:
+        //        transform.position = playerController.pickupTargetLarge.position;
+        //        break;
+        //    case AtomSize.VeryLarge:
+        //        transform.position = playerController.pickupTargetVeryLarge.position;
+        //        break;
+        //}
+        transform.position = playerController.pickupTargetOverhead.position;
+        rotationOffset = Mathf.Round(playerController.transform.rotation.eulerAngles.y / 90) * 90 - playerController.transform.rotation.eulerAngles.y;
+        // Debug.Log(rotationOffset);
+        transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y - rotationOffset, 0);
+        // CancelInvoke("SetKinematicTrue");
+        // SetKinematic(false);
+        //if (hingeJointToPlayer != null)
+        //{
+        //    Destroy(hingeJointToPlayer);
+        //    hingeJointToPlayer = null;
+        //}
+        if (gameObject.CompareTag("Atom"))
+        {
+            for (int i = 0; i < connections.Count; i++)
+            {
+                if (connections[i] != null)
+                {
+                    connections[i].SetActive(true);
+                    // Destroy(hingeJoints[i]);
+                    // hingeJoints[i] = null;
+                    connections[i] = null;
+                    connectionPoints[i].gameObject.SetActive(true);
+                }
+            }
+        }
+        collider1.enabled = false;
+        //hingeJointToPlayer = gameObject.AddComponent<HingeJoint>();
+        //hingeJointToPlayer.connectedBody = playerController.GetComponent<Rigidbody>();
+        //hingeJointToPlayer.axis = new Vector3(0, 0, 1);
+        //hingeJointToPlayer.useSpring = true;
+        //hingeJointToPlayer.spring = new JointSpring() { spring = 10, damper = 1 };
+        //hingeJointToPlayer.useLimits = true;
+        //hingeJointToPlayer.limits = new JointLimits() { min = -10, max = 10 };
+        // SetHeld();
+    }
+
+    public void DropAtom()
+    {
+        held = false;
+        outline.OutlineWidth = outlineDefaultThickness;
+        //Destroy(hingeJointToPlayer);
+        //hingeJointToPlayer = null;
+        //rigidBody.isKinematic = true;
+        //Invoke("SetKinematicTrue", 0.3f);
         switch (atomSize)
         {
             case AtomSize.Small:
@@ -60,50 +123,41 @@ public class AtomManager : MonoBehaviour
                 transform.position = playerController.pickupTargetVeryLarge.position;
                 break;
         }
-        float rotationOffset = Mathf.Round(playerController.transform.rotation.eulerAngles.y / 90) * 90 - playerController.transform.rotation.eulerAngles.y;
-        Debug.Log(rotationOffset);
-        transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y - rotationOffset, 0);
-        CancelInvoke("SetKinematicTrue");
-        SetKinematic(false);
-        if (hingeJointToPlayer != null)
-        {
-            Destroy(hingeJointToPlayer);
-            hingeJointToPlayer = null;
-        }
-        if (gameObject.CompareTag("Atom"))
-        {
-            for (int i = 0; i < connections.Count; i++)
-            {
-                if (connections[i] != null)
-                {
-                    connections[i].SetActive(true);
-                    Destroy(hingeJoints[i]);
-                    hingeJoints[i] = null;
-                    connections[i] = null;
-                    connectionPoints[i].gameObject.SetActive(true);
-                }
-            }
-        }
-        hingeJointToPlayer = gameObject.AddComponent<HingeJoint>();
-        hingeJointToPlayer.connectedBody = playerController.GetComponent<Rigidbody>();
-        hingeJointToPlayer.axis = new Vector3(0, 0, 1);
-        hingeJointToPlayer.useSpring = true;
-        hingeJointToPlayer.spring = new JointSpring() { spring = 10, damper = 1 };
-        hingeJointToPlayer.useLimits = true;
-        hingeJointToPlayer.limits = new JointLimits() { min = -10, max = 10 };
-        //SetHeld();
-    }
-
-    public void DropAtom()
-    {
-        outline.OutlineWidth = outlineDefaultThickness;
-        Destroy(hingeJointToPlayer);
-        hingeJointToPlayer = null;
-        rigidBody.isKinematic = true;
-        Invoke("SetKinematicTrue", 0.3f);
         SnapToGrid();
         ConnectToConnector();
-        //SetVisible();
+        collider1.enabled = true;
+        Invoke("DropAtomTask", 0.02f);
+        // SetVisible();
+    }
+
+    public void DropAtomTask()
+    {
+        switch (atomSize)
+        {
+            case AtomSize.Small:
+                transform.position = playerController.pickupTargetSmall.position;
+                break;
+            case AtomSize.Medium:
+                transform.position = playerController.pickupTargetMedium.position;
+                break;
+            case AtomSize.Large:
+                transform.position = playerController.pickupTargetLarge.position;
+                break;
+            case AtomSize.VeryLarge:
+                transform.position = playerController.pickupTargetVeryLarge.position;
+                break;
+        }
+        SnapToGrid();
+        ConnectToConnector();
+    }
+
+    private void Update()
+    {
+        if (held)
+        {
+            transform.position = playerController.pickupTargetOverhead.position;
+            transform.rotation = Quaternion.Euler(0, playerController.transform.rotation.eulerAngles.y - 90, 0);
+        }
     }
 
     public void HighlightAtom()
@@ -152,15 +206,15 @@ public class AtomManager : MonoBehaviour
 
     public void RotateAtom()
     {
-        Destroy(hingeJointToPlayer);
+        //Destroy(hingeJointToPlayer);
         transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y + 90, 0);
-        hingeJointToPlayer = gameObject.AddComponent<HingeJoint>();
-        hingeJointToPlayer.connectedBody = playerController.GetComponent<Rigidbody>();
-        hingeJointToPlayer.axis = new Vector3(0, 0, 1);
-        hingeJointToPlayer.useSpring = true;
-        hingeJointToPlayer.spring = new JointSpring() { spring = 10, damper = 1 };
-        hingeJointToPlayer.useLimits = true;
-        hingeJointToPlayer.limits = new JointLimits() { min = -10, max = 10 };
+        //hingeJointToPlayer = gameObject.AddComponent<HingeJoint>();
+        //hingeJointToPlayer.connectedBody = playerController.GetComponent<Rigidbody>();
+        //hingeJointToPlayer.axis = new Vector3(0, 0, 1);
+        //hingeJointToPlayer.useSpring = true;
+        //hingeJointToPlayer.spring = new JointSpring() { spring = 10, damper = 1 };
+        //hingeJointToPlayer.useLimits = true;
+        //hingeJointToPlayer.limits = new JointLimits() { min = -10, max = 10 };
     }
 
     public void ConnectToConnector()
@@ -203,24 +257,24 @@ public class AtomManager : MonoBehaviour
                             connectionPoint.gameObject.SetActive(false);
                             closestConnectionPoint.gameObject.SetActive(false);
 
-                            if (hingeJoints[connectionPoints.IndexOf(connectionPoint)] != null)
-                            {
-                                Destroy(hingeJoints[connectionPoints.IndexOf(connectionPoint)]);
-                                hingeJoints[connectionPoints.IndexOf(connectionPoint)] = null;
-                                atomManager.hingeJoints[atomManager.connectionPoints.IndexOf(closestConnectionPoint)] = null;
-                            }
+                            //if (hingeJoints[connectionPoints.IndexOf(connectionPoint)] != null)
+                            //{
+                            //    Destroy(hingeJoints[connectionPoints.IndexOf(connectionPoint)]);
+                            //    hingeJoints[connectionPoints.IndexOf(connectionPoint)] = null;
+                            //    atomManager.hingeJoints[atomManager.connectionPoints.IndexOf(closestConnectionPoint)] = null;
+                            //}
 
                             // create a hinge joint between the two connection points
-                            HingeJoint hingeJoint = gameObject.AddComponent<HingeJoint>();
-                            hingeJoint.connectedBody = collider.gameObject.GetComponent<Rigidbody>();
-                            hingeJoint.useLimits = true;
-                            hingeJoint.limits = new JointLimits() { min = -10, max = 10 };
+                            //HingeJoint hingeJoint = gameObject.AddComponent<HingeJoint>();
+                            //hingeJoint.connectedBody = collider.gameObject.GetComponent<Rigidbody>();
+                            //hingeJoint.useLimits = true;
+                            //hingeJoint.limits = new JointLimits() { min = -10, max = 10 };
 
-                            hingeJoints[connectionPoints.IndexOf(connectionPoint)] = hingeJoint;
+                            //hingeJoints[connectionPoints.IndexOf(connectionPoint)] = hingeJoint;
                             connections[connectionPoints.IndexOf(connectionPoint)] = closestConnectionPoint.gameObject;
-                            atomManager.hingeJoints[atomManager.connectionPoints.IndexOf(closestConnectionPoint)] = hingeJoint;
+                            //atomManager.hingeJoints[atomManager.connectionPoints.IndexOf(closestConnectionPoint)] = hingeJoint;
                             atomManager.connections[atomManager.connectionPoints.IndexOf(closestConnectionPoint)] = connectionPoint.gameObject;
-                            rigidBody.isKinematic = false;
+                            //rigidBody.isKinematic = false;
                             atomManager.UpdateConnectedAtoms();
                         }
                     }
@@ -269,24 +323,24 @@ public class AtomManager : MonoBehaviour
                             connectionPoint.gameObject.SetActive(false);
                             closestConnectionPoint.gameObject.SetActive(false);
 
-                            if (hingeJoints[connectionPoints.IndexOf(connectionPoint)] != null)
-                            {
-                                Destroy(hingeJoints[connectionPoints.IndexOf(connectionPoint)]);
-                                hingeJoints[connectionPoints.IndexOf(connectionPoint)] = null;
-                                atomManager.hingeJoints[atomManager.connectionPoints.IndexOf(closestConnectionPoint)] = null;
-                            }
+                            //if (hingeJoints[connectionPoints.IndexOf(connectionPoint)] != null)
+                            //{
+                            //    Destroy(hingeJoints[connectionPoints.IndexOf(connectionPoint)]);
+                            //    hingeJoints[connectionPoints.IndexOf(connectionPoint)] = null;
+                            //    atomManager.hingeJoints[atomManager.connectionPoints.IndexOf(closestConnectionPoint)] = null;
+                            //}
 
                             // create a hinge joint between the two connection points
-                            HingeJoint hingeJoint = collider.gameObject.AddComponent<HingeJoint>();
-                            hingeJoint.connectedBody = gameObject.GetComponent<Rigidbody>();
-                            hingeJoint.useLimits = true;
-                            hingeJoint.limits = new JointLimits() { min = -10, max = 10 };
+                            //HingeJoint hingeJoint = collider.gameObject.AddComponent<HingeJoint>();
+                            //hingeJoint.connectedBody = gameObject.GetComponent<Rigidbody>();
+                            //hingeJoint.useLimits = true;
+                            //hingeJoint.limits = new JointLimits() { min = -10, max = 10 };
 
-                            hingeJoints[connectionPoints.IndexOf(connectionPoint)] = hingeJoint;
+                            //hingeJoints[connectionPoints.IndexOf(connectionPoint)] = hingeJoint;
                             connections[connectionPoints.IndexOf(connectionPoint)] = closestConnectionPoint.gameObject;
-                            atomManager.hingeJoints[atomManager.connectionPoints.IndexOf(closestConnectionPoint)] = hingeJoint;
+                            //atomManager.hingeJoints[atomManager.connectionPoints.IndexOf(closestConnectionPoint)] = hingeJoint;
                             atomManager.connections[atomManager.connectionPoints.IndexOf(closestConnectionPoint)] = connectionPoint.gameObject;
-                            collider.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+                            //collider.gameObject.GetComponent<Rigidbody>().isKinematic = false;
                         }
                     }
                 }

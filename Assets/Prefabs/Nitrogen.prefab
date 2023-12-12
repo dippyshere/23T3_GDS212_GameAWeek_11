@@ -61,13 +61,13 @@ MonoBehaviour:
   outlinePickedupThickness: 4
   visibleMaterial: {fileID: 2100000, guid: f3e8ae203c89ca54cab7eaa1e97ac817, type: 2}
   heldMaterial: {fileID: 2100000, guid: 8f6012cf7fcdc09409512887bf5f812d, type: 2}
+  collider1: {fileID: 5954502132349208189}
   atomType: 2
   connectionPoints:
   - {fileID: 5430455426600150345}
   - {fileID: 2578091437010412508}
   - {fileID: 1239411895591543540}
   - {fileID: 8605208788846177494}
-  hingeJoints: []
   connections: []
   connectedAtomTypes: 
   debugActive: 0
