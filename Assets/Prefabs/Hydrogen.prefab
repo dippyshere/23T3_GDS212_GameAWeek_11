@@ -241,6 +241,10 @@ MonoBehaviour:
   yPosition: 4
   gridSize: 1.5
   atomSize: 0
+  outlineHighlightThickness: 6
+  outlinePickedupThickness: 4
+  visibleMaterial: {fileID: 2100000, guid: 885c998e62d8ff04cbe81f08c5d9e002, type: 2}
+  heldMaterial: {fileID: 2100000, guid: 9fd898a3532a6ab4f8b1d2082e4c5a64, type: 2}
   atomType: 0
   connectionPoints:
   - {fileID: 7246006380013889841}

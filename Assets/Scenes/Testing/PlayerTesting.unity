@@ -10050,6 +10050,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7405998654093787357, guid: 7e97f04d1144cae47b1e3b479c9cb9c2,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8568796336004239284, guid: 7e97f04d1144cae47b1e3b479c9cb9c2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -59793,7 +59798,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1720892429
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59806,8 +59811,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c76ddc50154c6514cbadc636a7acde34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridSize: 1.5
-  gridCount: 50
+  gridSize: 3
+  gridCount: 25
 --- !u!4 &1720892430
 Transform:
   m_ObjectHideFlags: 0
@@ -75071,11 +75076,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 6823151839084070594, guid: d3b1def4b1d0c514a87f821af75a06b5,
-        type: 3}
-      propertyPath: animationWalkMultiplier
-      value: 0.12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

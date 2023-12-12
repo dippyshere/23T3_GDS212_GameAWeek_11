@@ -5,14 +5,20 @@ using UnityEngine;
 public class AtomManager : MonoBehaviour
 {
     [Header("Configuration")]
-    [SerializeField] private float yPosition = 5f;
-    [SerializeField] private float gridSize = 3f;
-    [SerializeField] private AtomSize atomSize = AtomSize.Small;
+    [SerializeField, Tooltip("The Y Position the atom is constrained to")] private float yPosition = 5f;
+    [SerializeField, Tooltip("The size of the grid the atom will snap to")] private float gridSize = 3f;
+    [SerializeField, Tooltip("The hitbox size of the atom for registering player events")] private AtomSize atomSize = AtomSize.Small;
+    [SerializeField, Tooltip("The thickness of the outline when the player is going to pickup this atom")] private float outlineHighlightThickness = 6f;
+    [SerializeField, Tooltip("The thickness of the outline when the player is holding this atom")] private float outlinePickedupThickness = 4f;
+    [SerializeField, Tooltip("The material to use when placed")] private Material visibleMaterial;
+    [SerializeField, Tooltip("The material to use when being held")] private Material heldMaterial;
     public Compound.AtomType atomType;
     public List<Transform> connectionPoints = new List<Transform>(4);
     private Rigidbody rigidBody => GetComponent<Rigidbody>();
+    private Outline outline => GetComponent<Outline>();
     private PlayerController playerController => GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     private HingeJoint hingeJointToPlayer;
+    private float outlineDefaultThickness;
     public List<HingeJoint> hingeJoints;
     public List<GameObject> connections;
     public List<Compound.AtomType> connectedAtomTypes;
@@ -33,10 +39,12 @@ public class AtomManager : MonoBehaviour
     {
         SnapToGrid();
         Invoke("SnapToGrid", 0.01f);
+        outlineDefaultThickness = outline.OutlineWidth;
     }
 
     public void PickupAtom()
     {
+        outline.OutlineWidth = outlinePickedupThickness;
         switch (atomSize)
         {
             case AtomSize.Small:
@@ -83,16 +91,49 @@ public class AtomManager : MonoBehaviour
         hingeJointToPlayer.spring = new JointSpring() { spring = 10, damper = 1 };
         hingeJointToPlayer.useLimits = true;
         hingeJointToPlayer.limits = new JointLimits() { min = -10, max = 10 };
+        //SetHeld();
     }
 
     public void DropAtom()
     {
+        outline.OutlineWidth = outlineDefaultThickness;
         Destroy(hingeJointToPlayer);
         hingeJointToPlayer = null;
         rigidBody.isKinematic = true;
         Invoke("SetKinematicTrue", 0.3f);
         SnapToGrid();
         ConnectToConnector();
+        //SetVisible();
+    }
+
+    public void HighlightAtom()
+    {
+        outline.OutlineWidth = outlineHighlightThickness;
+    }
+
+    public void UnhighlightAtom()
+    {
+        outline.OutlineWidth = outlineDefaultThickness;
+    }
+
+    private void SetVisible()
+    {
+        foreach (MeshRenderer meshRenderer in transform.Find("AtomParts").GetComponentsInChildren<MeshRenderer>())
+        {
+            Material[] materials = meshRenderer.materials;
+            materials[0] = visibleMaterial;
+            meshRenderer.materials = materials;
+        }
+    }
+
+    private void SetHeld()
+    {
+        foreach (MeshRenderer meshRenderer in transform.Find("AtomParts").GetComponentsInChildren<MeshRenderer>())
+        {
+            Material[] materials = meshRenderer.materials;
+            materials[0] = heldMaterial;
+            meshRenderer.materials = materials;
+        }
     }
 
     private void SetKinematicTrue()

@@ -19,9 +19,11 @@ public class PlayerController : MonoBehaviour
     public Transform pickupTargetMedium;
     public Transform pickupTargetLarge;
     public Transform pickupTargetVeryLarge;
+    public Transform pickupTargetOverhead;
 
     private Rigidbody rigidBody => GetComponent<Rigidbody>();
     private List<GameObject> pendingObjects = new List<GameObject>();
+    private List<GameObject> pendingFallbackObjects = new List<GameObject>();
     private GameObject heldObject;
 
     // Update is called once per frame
@@ -157,6 +159,129 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R) && heldObject != null)
         {
             RotateObject(heldObject);
+        }
+
+        // check for atoms to highlight
+        if (heldObject == null)
+        {
+            if (pendingObjects.Count > 0)
+            {
+                foreach (GameObject obj in pendingObjects)
+                {
+                    obj.GetComponent<AtomManager>().UnhighlightAtom();
+                }
+                // find the object closest to the pickup small transform
+                GameObject closestObject = null;
+                float closestDistance = float.MaxValue;
+                Collider[] colliders = Physics.OverlapSphere(pickupTargetSmall.position, pickupFallbackRange);
+                foreach (Collider collider in colliders)
+                {
+                    if ((collider.CompareTag("Atom") || collider.CompareTag("Connector")) && !pendingObjects.Contains(collider.gameObject))
+                    {
+                        pendingObjects.Add(collider.gameObject);
+                    }
+                }
+                foreach (GameObject obj in pendingObjects)
+                {
+                    float distance = Vector3.Distance(obj.transform.position, pickupTargetSmall.position);
+                    if (distance < closestDistance)
+                    {
+                        closestObject = obj;
+                        closestDistance = distance;
+                    }
+                }
+                if (closestObject != null)
+                {
+                    bool insideCollider = false;
+                    colliders = Physics.OverlapSphere(pickupTargetSmall.position, pickupFallbackRange);
+                    foreach (Collider collider in colliders)
+                    {
+                        if (collider.gameObject == closestObject)
+                        {
+                            closestObject.GetComponent<AtomManager>().HighlightAtom();
+                            insideCollider = true;
+                            break;
+                        }
+                    }
+                    if (!insideCollider)
+                    {
+                        insideCollider = false;
+                        colliders = Physics.OverlapSphere(transform.position, pickupFallbackRange);
+                        foreach (Collider collider in colliders)
+                        {
+                            if (collider.gameObject == closestObject)
+                            {
+                                closestObject.GetComponent<AtomManager>().HighlightAtom();
+                                insideCollider = true;
+                                break;
+                            }
+                        }
+                        if (!insideCollider)
+                        {
+                            Debug.Log("Not inside collider so clearing pendingObjects");
+                            pendingObjects.Clear();
+                        }
+                    }
+                }
+            }
+            else
+            {
+                // check for atoms in range
+                bool insideCollider = false;
+                Collider[] colliders = Physics.OverlapSphere(pickupTargetSmall.position, pickupFallbackRange);
+                if (pendingFallbackObjects.Count > 0)
+                {
+                    foreach (Collider collider in colliders)
+                    {
+                        if (collider.CompareTag("Atom") || collider.CompareTag("Connector") && pendingFallbackObjects.Contains(collider.gameObject))
+                        {
+                            collider.gameObject.GetComponent<AtomManager>().UnhighlightAtom();
+                            pendingFallbackObjects.Remove(collider.gameObject);
+                            insideCollider = true;
+                            break;
+                        }
+                    }
+                    if (!insideCollider)
+                    {
+                        colliders = Physics.OverlapSphere(transform.position, pickupFallbackRange);
+                        foreach (Collider collider in colliders)
+                        {
+                            if (collider.CompareTag("Atom") || collider.CompareTag("Connector") && pendingFallbackObjects.Contains(collider.gameObject))
+                            {
+                                collider.gameObject.GetComponent<AtomManager>().UnhighlightAtom();
+                                pendingFallbackObjects.Remove(collider.gameObject);
+                                insideCollider = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+                insideCollider = false;
+                foreach (Collider collider in colliders)
+                {
+                    if (collider.CompareTag("Atom") || collider.CompareTag("Connector"))
+                    {
+                        collider.gameObject.GetComponent<AtomManager>().HighlightAtom();
+                        pendingFallbackObjects.Add(collider.gameObject);
+                        insideCollider = true;
+                        break;
+                    }
+                }
+                if (!insideCollider)
+                {
+                    colliders = Physics.OverlapSphere(transform.position, pickupFallbackRange);
+                    foreach (Collider collider in colliders)
+                    {
+                        if (collider.CompareTag("Atom") || collider.CompareTag("Connector"))
+                        {
+                            collider.gameObject.GetComponent<AtomManager>().HighlightAtom();
+                            pendingFallbackObjects.Add(collider.gameObject);
+                            insideCollider = true;
+                            break;
+                        }
+                    }
+                }
+            }
         }
     }
 
