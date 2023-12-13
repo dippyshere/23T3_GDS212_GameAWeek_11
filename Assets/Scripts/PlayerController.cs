@@ -290,7 +290,7 @@ public class PlayerController : MonoBehaviour
                 //}
             }
 
-            if (movement != Vector3.zero && rigidBody.velocity.magnitude < 3f)
+            if (movement != Vector3.zero && rigidBody.velocity.magnitude < 5f)
             {
                 pushTimer += Time.deltaTime;
                 if (pushTimer >= atomPushDuration)
