@@ -9,8 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4176216229701232}
+  - component: {fileID: 9021636043715438048}
   - component: {fileID: 33076935860609032}
   - component: {fileID: 23960683115149664}
+  - component: {fileID: 4443640792533030474}
   m_Layer: 3
   m_Name: floor_tile01
   m_TagString: Untagged
@@ -33,6 +35,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!114 &9021636043715438048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1799557203254782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e13616448c4c8b6468de71e5093c8ae3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalMaterial: {fileID: 2100000, guid: 6b425c76f8a64d6438b501c3174bfdc4, type: 2}
+  highlightMaterial: {fileID: 2100000, guid: c823f36b199548f49875af6a3bc5ce6c, type: 2}
 --- !u!33 &33076935860609032
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -83,3 +99,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &4443640792533030474
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1799557203254782}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4, y: 4, z: 0.9833633}
+  m_Center: {x: -0.000054597855, y: 0.00000011920929, z: 0.49167895}
