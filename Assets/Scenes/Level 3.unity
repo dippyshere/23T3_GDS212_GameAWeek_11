@@ -867,7 +867,7 @@ PrefabInstance:
     - target: {fileID: 2809387002761290309, guid: 0609907eec8e6db429624e242aa2b488,
         type: 3}
       propertyPath: m_text
-      value: Ammonia - NH3
+      value: 'Ethanol - '
       objectReference: {fileID: 0}
     - target: {fileID: 2809387002761290309, guid: 0609907eec8e6db429624e242aa2b488,
         type: 3}
@@ -907,7 +907,7 @@ PrefabInstance:
     - target: {fileID: 3414100277654805228, guid: 0609907eec8e6db429624e242aa2b488,
         type: 3}
       propertyPath: m_Name
-      value: Ammonia
+      value: Ethanol
       objectReference: {fileID: 0}
     - target: {fileID: 3888720262851493181, guid: 0609907eec8e6db429624e242aa2b488,
         type: 3}
