@@ -15,6 +15,9 @@ public class PlayerController : MonoBehaviour
     [Header("References")]
     [SerializeField, Tooltip("Reference to the player's animator controller for setting run + run speed")] private Animator animator;
     [SerializeField, Tooltip("Reference to the level manager to trigger win condition checks unpon dropping an object")] private LevelManager levelManager;
+    [SerializeField] private GameObject PickupEffect;
+    [SerializeField] private GameObject DropEffect;
+    [SerializeField] private GameObject SuccessfulDropEffect;
     [SerializeField, Tooltip("Reference to the pickup target transforms for each size of object")]
     public Transform pickupTargetSmall;
     public Transform pickupTargetMedium;
@@ -369,6 +372,9 @@ public class PlayerController : MonoBehaviour
         obj.GetComponent<AtomManager>().PickupAtom();
         heldObject = obj;
         pendingObjects.Clear();
+
+        GameObject spawnedPickupEffect = Instantiate(PickupEffect, pickupTargetOverhead.transform.position, Quaternion.identity);
+        spawnedPickupEffect.transform.localScale = new Vector3 (4, 4, 4);
     }
 
     /// <summary>
@@ -393,6 +399,8 @@ public class PlayerController : MonoBehaviour
                 pendingObjects.Add(collider.gameObject);
             }
         }
+        GameObject spawnedDropEffect = Instantiate(DropEffect, pickupTargetLarge.transform.position, Quaternion.identity);
+        spawnedDropEffect.transform.localScale = new Vector3(2.5f, 2.5f, 2.5f);
     }
 
     /// <summary>
