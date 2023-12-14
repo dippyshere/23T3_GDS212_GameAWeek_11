@@ -10401,6 +10401,11 @@ PrefabInstance:
       propertyPath: levelManager
       value: 
       objectReference: {fileID: 1452457105}
+    - target: {fileID: 6823151839084070594, guid: d3b1def4b1d0c514a87f821af75a06b5,
+        type: 3}
+      propertyPath: atomLevelsList.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

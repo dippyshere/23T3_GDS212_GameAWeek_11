@@ -240,6 +240,7 @@ MonoBehaviour:
   pickupFallbackRange: 0.25
   animationWalkMultiplier: 0.12
   atomPushDuration: 0.4
+  atomLevelsList: 01000000010000000200000003000000
   animator: {fileID: 8416082931999881658}
   levelManager: {fileID: 0}
   pickupEffect: {fileID: 8771972552311404799, guid: bbf9e36a48d6c5648a13889afab076fd,
@@ -248,6 +249,8 @@ MonoBehaviour:
     type: 3}
   successfulDropEffect: {fileID: 9157105887711914197, guid: c4f829cb7dd4b864caf8832ec5b1ee55,
     type: 3}
+  lightningArea1: {fileID: 0}
+  lightningArea2: {fileID: 0}
   pickupTargetSmall: {fileID: 1891732060506266280}
   pickupTargetMedium: {fileID: 2495919173721112149}
   pickupTargetLarge: {fileID: 5884433752826109988}

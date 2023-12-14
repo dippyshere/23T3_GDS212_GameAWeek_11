@@ -11,6 +11,7 @@ public class CameraTrackController : MonoBehaviour
     [SerializeField] private CinemachinePathBase _track;
     [SerializeField] private BoxCollider _collider;
     private GameObject _player;
+    [SerializeField] private bool loadNextArea = false;
 
     private void Start()
     {
@@ -31,6 +32,10 @@ public class CameraTrackController : MonoBehaviour
     {
         _collider.enabled = true;
         _camera.MoveToTopOfPrioritySubqueue();
+        if (loadNextArea)
+        {
+            _player.GetComponent<PlayerController>().LoadNextLevelByTrigger();
+        }
         //if (_track != null)
         //{
         //    CinemachineTrackedDolly cinemachineTrackedDolly = _camera.AddCinemachineComponent<CinemachineTrackedDolly>();

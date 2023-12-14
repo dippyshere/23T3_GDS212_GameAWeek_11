@@ -37,6 +37,8 @@ public class AtomManager : MonoBehaviour
             //hingeJoints.Add(null);
             connections.Add(null);
         }
+        preview = Instantiate(previewPrefab, transform.position, Quaternion.identity);
+        preview.SetActive(false);
     }
 
     private void Start()
@@ -264,6 +266,10 @@ public class AtomManager : MonoBehaviour
         {
             transform.position = playerController.pickupTargetOverhead.position;
             transform.rotation = Quaternion.Euler(0, playerController.transform.rotation.eulerAngles.y - 90 + rotationOffset, 0);
+            if (preview == null)
+            {
+                preview = Instantiate(previewPrefab, transform.position, Quaternion.identity);
+            }
             switch (atomSize)
             {
                 case AtomSize.Small:

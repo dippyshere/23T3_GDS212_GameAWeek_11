@@ -51,6 +51,86 @@ public class Compound
                     // If all of the connectors are attached to the correct atoms, return true
                     return true;
                 }
+            case CompoundType.Glycolaldehyde:
+                List<bool> attached1 = new List<bool>();
+                foreach (GameObject connector in connectors)
+                {
+                    AtomManager atomManager = connector.GetComponent<AtomManager>();
+                    if (atomManager.connectedAtomTypes.Contains(AtomType.Hydrogen) && atomManager.connectedAtomTypes.Contains(AtomType.Carbon))
+                    {
+                        attached1.Add(true);
+                    }
+                    else if (atomManager.connectedAtomTypes.Contains(AtomType.Carbon) && atomManager.connectedAtomTypes.Contains(AtomType.Oxygen))
+                    {
+                        attached1.Add(true);
+                    }
+                    else if (atomManager.connectedAtomTypes.Contains(AtomType.Hydrogen) && atomManager.connectedAtomTypes.Contains(AtomType.Oxygen))
+                    {
+                        attached1.Add(true);
+                    }
+                    else if (atomManager.connectedAtomTypes.Contains(AtomType.Carbon) && atomManager.connectedAtomTypes.Contains(AtomType.Carbon))
+                    {
+                        attached1.Add(true);
+                    }
+                    else if (atomManager.connectedAtomTypes.Contains(AtomType.Hydrogen) && atomManager.connectedAtomTypes.Contains(AtomType.Hydrogen))
+                    {
+                        attached1.Add(true);
+                    }
+                    else
+                    {
+                        attached1.Add(false);
+                    }
+                }
+                if (attached1.Contains(false) || attached1.Count == 0)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            case CompoundType.Ethanol:
+                List<bool> attached7 = new List<bool>();
+                foreach (GameObject connector in connectors)
+                {
+                    AtomManager atomManager = connector.GetComponent<AtomManager>();
+                    if (atomManager.connectedAtomTypes.Contains(AtomType.Hydrogen) && atomManager.connectedAtomTypes.Contains(AtomType.Carbon))
+                    {
+                        attached7.Add(true);
+                    }
+                    else if (atomManager.connectedAtomTypes.Contains(AtomType.Carbon) && atomManager.connectedAtomTypes.Contains(AtomType.Oxygen))
+                    {
+                        attached7.Add(true);
+                    }
+                    else if (atomManager.connectedAtomTypes.Contains(AtomType.Hydrogen) && atomManager.connectedAtomTypes.Contains(AtomType.Oxygen))
+                    {
+                        attached7.Add(true);
+                    }
+                    else if (atomManager.connectedAtomTypes.Contains(AtomType.Carbon) && atomManager.connectedAtomTypes.Contains(AtomType.Carbon))
+                    {
+                        attached7.Add(true);
+                    }
+                    else if (atomManager.connectedAtomTypes.Contains(AtomType.Hydrogen) && atomManager.connectedAtomTypes.Contains(AtomType.Hydrogen))
+                    {
+                        attached7.Add(true);
+                    }
+                    else if (atomManager.connectedAtomTypes.Contains(AtomType.Hydrogen) && atomManager.connectedAtomTypes.Contains(AtomType.Hydrogen))
+                    {
+                        attached7.Add(true);
+                    }
+                    else
+                    {
+                        attached7.Add(false);
+                    }
+                }
+                if (attached7.Contains(false) || attached7.Count == 0)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
             case CompoundType.Methane:
                 List<bool> attached2 = new List<bool>();
                 foreach (GameObject connector in connectors)

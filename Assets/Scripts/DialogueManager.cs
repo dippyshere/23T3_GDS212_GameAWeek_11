@@ -128,7 +128,10 @@ public class DialogueManager : MonoBehaviour
         if (sentenceIndex > 0)
         {
             AudioManager audioManager = FindObjectOfType<AudioManager>();
-            audioManager.PlaySoundEffect(0);
+            if (audioManager != null)
+            {
+                audioManager.PlaySoundEffect(0);
+            }
         }
         if (sentenceIndex < currentDialogue.focusEnabled.Length && currentDialogue.focusEnabled[sentenceIndex])
         {
@@ -185,7 +188,10 @@ public class DialogueManager : MonoBehaviour
             currentDialogueIndex++;
             StartDialogue(currentDialogues[currentDialogueIndex]);
             AudioManager audioManager = FindObjectOfType<AudioManager>();
-            audioManager.PlaySoundEffect(0);
+            if (audioManager != null)
+            {
+                audioManager.PlaySoundEffect(0);
+            }
         }
         else
         {
@@ -194,7 +200,10 @@ public class DialogueManager : MonoBehaviour
                 currentDialogues = null;
             }
             AudioManager audioManager = FindObjectOfType<AudioManager>();
-            audioManager.PlaySoundEffect(1);
+            if (audioManager != null)
+            {
+                audioManager.PlaySoundEffect(1);
+            }
             animator.SetBool("DialogueActive", false);
             continueButton.interactable = false;
         }

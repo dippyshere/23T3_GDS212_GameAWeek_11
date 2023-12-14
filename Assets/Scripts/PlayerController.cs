@@ -20,6 +20,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Tooltip("Effect to spawn when picking up an object")] private GameObject pickupEffect;
     [SerializeField, Tooltip("Effect to spawn when placing an object")] public GameObject dropEffect;
     [SerializeField, Tooltip("Effect to spawn when placing an object and having a successful connection")] public GameObject successfulDropEffect;
+    public Animator transitionAnimator;
+    public Animator transitionIconAnimator;
+    public GameObject lightningArea1;
+    public GameObject lightningArea2;
     [SerializeField, Tooltip("Reference to the pickup target transforms for each size of object")]
     public Transform pickupTargetSmall;
     public Transform pickupTargetMedium;
@@ -184,7 +188,7 @@ public class PlayerController : MonoBehaviour
             {
                 foreach (GameObject obj in pendingObjects)
                 {
-                    if (obj.GetComponent<AtomManager>() == null)
+                    if (obj == null)
                     {
                         pendingObjects.Remove(obj);
                         continue;
@@ -414,6 +418,7 @@ public class PlayerController : MonoBehaviour
     /// <param name="obj">The atom/conncetor to drop</param>
     private void DropObject(GameObject obj)
     {
+        levelManager = FindObjectOfType<LevelManager>();
         Debug.Log("Dropping " + obj.name);
         AtomManager objAtomManager = obj.GetComponent<AtomManager>();
         objAtomManager.DropAtom();
@@ -493,26 +498,48 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(levelManager.LoadLevel("Menu"));
             return;
         }
-        StartCoroutine(WaitForNextScene());
+        StartCoroutine(UnloadCurrentScene());
+        if (currentAtomLevel == 1)
+        {
+            LoadNextLevelByTrigger();
+        }
+        lightningArea1.SetActive(false);
+        GameObject spawnedDropEffect = Instantiate(successfulDropEffect, new Vector3(-221.02f, 2.44f, -31.13f), Quaternion.identity);
+        spawnedDropEffect.transform.localScale = new Vector3(2.75f, 2.75f, 2.75f);
+        lightningArea2.SetActive(false);
+        spawnedDropEffect = Instantiate(successfulDropEffect, new Vector3(-107.72f, 2.44f, 17.37f), Quaternion.identity);
+        spawnedDropEffect.transform.localScale = new Vector3(2.75f, 2.75f, 2.75f);
     }
 
-    private IEnumerator WaitForNextScene()
+    public void LoadNextLevelByTrigger()
+    {
+        StartCoroutine(LoadNextScene());
+        lightningArea1.SetActive(true);
+        lightningArea2.SetActive(true);
+    }
+
+    private IEnumerator UnloadCurrentScene()
     {
         levelManager.transitionAnimator.SetTrigger("Start");
         levelManager.transitionIconAnimator.SetTrigger("Start");
 
         yield return new WaitForSeconds(1);
-        AsyncOperation asyncOperation = SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().name);
+        AsyncOperation asyncOperation = SceneManager.UnloadSceneAsync(atomLevelsList[currentAtomLevel - 1].ToString() + " Scene");
         while (!asyncOperation.isDone)
         {
             yield return null;
         }
-        asyncOperation = SceneManager.LoadSceneAsync(atomLevelsList[currentAtomLevel].ToString() + " Scene", LoadSceneMode.Additive);
+        transitionAnimator.SetTrigger("End");
+        transitionIconAnimator.SetTrigger("End");
+    }
+
+    private IEnumerator LoadNextScene()
+    {
+        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(atomLevelsList[currentAtomLevel].ToString() + " Scene", LoadSceneMode.Additive);
         while (!asyncOperation.isDone)
         {
             yield return null;
         }
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName(atomLevelsList[currentAtomLevel].ToString() + " Scene"));
         levelManager = FindObjectOfType<LevelManager>();
     }
 }
