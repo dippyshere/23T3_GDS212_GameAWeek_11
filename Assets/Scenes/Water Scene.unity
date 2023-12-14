@@ -857,6 +857,82 @@ PrefabInstance:
       propertyPath: transitionIconAnimator
       value: 
       objectReference: {fileID: 508141612}
+    - target: {fileID: 457408817641924523, guid: f4fc65cb2e734324b9bb25162b746a8f,
+        type: 3}
+      propertyPath: winDialogue.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 457408817641924523, guid: f4fc65cb2e734324b9bb25162b746a8f,
+        type: 3}
+      propertyPath: winDialogue.Array.data[0].icon
+      value: 
+      objectReference: {fileID: 21300000, guid: f3107641950cd0d4e9908699c8e9d2a6,
+        type: 3}
+    - target: {fileID: 457408817641924523, guid: f4fc65cb2e734324b9bb25162b746a8f,
+        type: 3}
+      propertyPath: winDialogue.Array.data[0].name
+      value: Dr Mittens
+      objectReference: {fileID: 0}
+    - target: {fileID: 457408817641924523, guid: f4fc65cb2e734324b9bb25162b746a8f,
+        type: 3}
+      propertyPath: winDialogue.Array.data[0].sentences.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 457408817641924523, guid: f4fc65cb2e734324b9bb25162b746a8f,
+        type: 3}
+      propertyPath: winDialogue.Array.data[0].focusEnabled.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 457408817641924523, guid: f4fc65cb2e734324b9bb25162b746a8f,
+        type: 3}
+      propertyPath: winDialogue.Array.data[0].sentences.Array.data[0]
+      value: Congratulations! Delicious, refreshing water is ours!
+      objectReference: {fileID: 0}
+    - target: {fileID: 457408817641924523, guid: f4fc65cb2e734324b9bb25162b746a8f,
+        type: 3}
+      propertyPath: winDialogue.Array.data[0].sentences.Array.data[1]
+      value: Forward on to the next area and we will see what we have in store!
+      objectReference: {fileID: 0}
+    - target: {fileID: 457408817641924523, guid: f4fc65cb2e734324b9bb25162b746a8f,
+        type: 3}
+      propertyPath: winDialogue.Array.data[0].focusEnabled.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 457408817641924523, guid: f4fc65cb2e734324b9bb25162b746a8f,
+        type: 3}
+      propertyPath: winDialogue.Array.data[0].focusEnabled.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 457408817641924523, guid: f4fc65cb2e734324b9bb25162b746a8f,
+        type: 3}
+      propertyPath: winDialogue.Array.data[0].dialogueLoadNextLevel.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 457408817641924523, guid: f4fc65cb2e734324b9bb25162b746a8f,
+        type: 3}
+      propertyPath: winDialogue.Array.data[0].dialogueLoadNextLevel.Array.data[0]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 457408817641924523, guid: f4fc65cb2e734324b9bb25162b746a8f,
+        type: 3}
+      propertyPath: winDialogue.Array.data[0].dialogueLoadNextLevel.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 457408817641924523, guid: f4fc65cb2e734324b9bb25162b746a8f,
+        type: 3}
+      propertyPath: winDialogue.Array.data[0].dialogueUnloadCurentLevel.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 457408817641924523, guid: f4fc65cb2e734324b9bb25162b746a8f,
+        type: 3}
+      propertyPath: winDialogue.Array.data[0].dialogueUnloadCurentLevel.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 457408817641924523, guid: f4fc65cb2e734324b9bb25162b746a8f,
+        type: 3}
+      propertyPath: winDialogue.Array.data[0].dialogueUnloadCurentLevel.Array.data[1]
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7066446884495393718, guid: f4fc65cb2e734324b9bb25162b746a8f,
         type: 3}
       propertyPath: m_Name

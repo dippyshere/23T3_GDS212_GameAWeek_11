@@ -490,6 +490,94 @@ Animator:
     type: 3}
   m_PrefabInstance: {fileID: 609096820}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &769578280
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 769578282}
+  - component: {fileID: 769578281}
+  m_Layer: 0
+  m_Name: DialoguePlayerIntro
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &769578281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 769578280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4efa3683479cf24fa5931db49b7e120, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogue:
+  - name: Dr. Mittens
+    icon: {fileID: 21300000, guid: f3107641950cd0d4e9908699c8e9d2a6, type: 3}
+    isIconOnLeft: 1
+    sentences:
+    - In this area, we will be making glycolaldehyde...
+    - ...one of the simplest carbohydrates in the world!
+    focusEnabled: 0101
+    disableContinueButton: 
+    dialogueAdvancedByPickingUp: 
+    dialogueAdvancedByPlacing: 
+    dialogueAdvancedByRotating: 
+    dialogueAdvancedByCompleting: 
+    dialogueUnloadCurentLevel: 
+    dialogueLoadNextLevel: 
+  - name: Profeswsor Paws
+    icon: {fileID: 21300000, guid: 44ba0b82da8703b49897376434075356, type: 3}
+    isIconOnLeft: 1
+    sentences:
+    - "Remember to check the formula at the top of the screen if you\u2019re having
+      trouble in putting the molecule together."
+    - ' ...so we must ensure our kibble has lots for good digestion.'
+    focusEnabled: 0101
+    disableContinueButton: 
+    dialogueAdvancedByPickingUp: 
+    dialogueAdvancedByPlacing: 
+    dialogueAdvancedByRotating: 
+    dialogueAdvancedByCompleting: 
+    dialogueUnloadCurentLevel: 
+    dialogueLoadNextLevel: 
+  - name: Dr Mittens
+    icon: {fileID: 21300000, guid: f3107641950cd0d4e9908699c8e9d2a6, type: 3}
+    isIconOnLeft: 1
+    sentences:
+    - Remember to check the formula at the top of the screen...
+    - " ...if you\u2019re having trouble in putting the molecule together."
+    focusEnabled: 0101
+    disableContinueButton: 
+    dialogueAdvancedByPickingUp: 
+    dialogueAdvancedByPlacing: 
+    dialogueAdvancedByRotating: 
+    dialogueAdvancedByCompleting: 
+    dialogueUnloadCurentLevel: 
+    dialogueLoadNextLevel: 
+--- !u!4 &769578282
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 769578280}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &851469757
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1604,6 +1692,62 @@ PrefabInstance:
       propertyPath: transitionIconAnimator
       value: 
       objectReference: {fileID: 609096822}
+    - target: {fileID: 457408817641924523, guid: f4fc65cb2e734324b9bb25162b746a8f,
+        type: 3}
+      propertyPath: winDialogue.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 457408817641924523, guid: f4fc65cb2e734324b9bb25162b746a8f,
+        type: 3}
+      propertyPath: winDialogue.Array.data[0].icon
+      value: 
+      objectReference: {fileID: 21300000, guid: f3107641950cd0d4e9908699c8e9d2a6,
+        type: 3}
+    - target: {fileID: 457408817641924523, guid: f4fc65cb2e734324b9bb25162b746a8f,
+        type: 3}
+      propertyPath: winDialogue.Array.data[0].name
+      value: Dr Mittens
+      objectReference: {fileID: 0}
+    - target: {fileID: 457408817641924523, guid: f4fc65cb2e734324b9bb25162b746a8f,
+        type: 3}
+      propertyPath: winDialogue.Array.data[0].sentences.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 457408817641924523, guid: f4fc65cb2e734324b9bb25162b746a8f,
+        type: 3}
+      propertyPath: winDialogue.Array.data[0].focusEnabled.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 457408817641924523, guid: f4fc65cb2e734324b9bb25162b746a8f,
+        type: 3}
+      propertyPath: winDialogue.Array.data[0].sentences.Array.data[0]
+      value: Ah, I look forward to never having a sore tummy with all that glycolaldehyde.
+      objectReference: {fileID: 0}
+    - target: {fileID: 457408817641924523, guid: f4fc65cb2e734324b9bb25162b746a8f,
+        type: 3}
+      propertyPath: winDialogue.Array.data[0].focusEnabled.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 457408817641924523, guid: f4fc65cb2e734324b9bb25162b746a8f,
+        type: 3}
+      propertyPath: winDialogue.Array.data[0].dialogueLoadNextLevel.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 457408817641924523, guid: f4fc65cb2e734324b9bb25162b746a8f,
+        type: 3}
+      propertyPath: winDialogue.Array.data[0].dialogueLoadNextLevel.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 457408817641924523, guid: f4fc65cb2e734324b9bb25162b746a8f,
+        type: 3}
+      propertyPath: winDialogue.Array.data[0].dialogueUnloadCurentLevel.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 457408817641924523, guid: f4fc65cb2e734324b9bb25162b746a8f,
+        type: 3}
+      propertyPath: winDialogue.Array.data[0].dialogueUnloadCurentLevel.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7066446884495393718, guid: f4fc65cb2e734324b9bb25162b746a8f,
         type: 3}
       propertyPath: m_Name
@@ -1756,3 +1900,4 @@ SceneRoots:
   - {fileID: 3865509784328645114}
   - {fileID: 8621272279974508781}
   - {fileID: 609096820}
+  - {fileID: 769578282}
