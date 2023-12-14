@@ -524,13 +524,13 @@ public class PlayerController : MonoBehaviour
         levelManager.transitionIconAnimator.SetTrigger("Start");
 
         yield return new WaitForSeconds(1);
+        transitionAnimator.SetTrigger("End");
+        transitionIconAnimator.SetTrigger("End");
         AsyncOperation asyncOperation = SceneManager.UnloadSceneAsync(atomLevelsList[currentAtomLevel - 1].ToString() + " Scene");
         while (!asyncOperation.isDone)
         {
             yield return null;
         }
-        transitionAnimator.SetTrigger("End");
-        transitionIconAnimator.SetTrigger("End");
     }
 
     private IEnumerator LoadNextScene()
@@ -541,5 +541,6 @@ public class PlayerController : MonoBehaviour
             yield return null;
         }
         levelManager = FindObjectOfType<LevelManager>();
+        yield return null;
     }
 }

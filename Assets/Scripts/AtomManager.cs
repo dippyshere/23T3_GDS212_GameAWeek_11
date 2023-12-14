@@ -103,6 +103,10 @@ public class AtomManager : MonoBehaviour
         //hingeJointToPlayer.spring = new JointSpring() { spring = 10, damper = 1 };
         //hingeJointToPlayer.useLimits = true;
         //hingeJointToPlayer.limits = new JointLimits() { min = -10, max = 10 };
+        if (preview == null)
+        {
+            preview = Instantiate(previewPrefab, transform.position, Quaternion.identity);
+        }
         preview.SetActive(true);
     }
 

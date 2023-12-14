@@ -30,6 +30,10 @@ public class CameraTrackController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (_collider.enabled)
+        {
+            return;
+        }
         _collider.enabled = true;
         _camera.MoveToTopOfPrioritySubqueue();
         if (loadNextArea)
