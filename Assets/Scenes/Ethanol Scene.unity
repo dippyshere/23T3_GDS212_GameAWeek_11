@@ -1245,6 +1245,131 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b03e3e108ae54b24b846b079ebf4af6e, type: 3}
+--- !u!1 &1583515457
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1583515459}
+  - component: {fileID: 1583515458}
+  m_Layer: 0
+  m_Name: DialoguePlayerIntro
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1583515458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1583515457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4efa3683479cf24fa5931db49b7e120, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogue:
+  - name: Dr. Mittens
+    icon: {fileID: 21300000, guid: f3107641950cd0d4e9908699c8e9d2a6, type: 3}
+    isIconOnLeft: 0
+    sentences:
+    - And now for our final introduction to molecular fusing science!
+    - Ethanol is the last molecule today.
+    focusEnabled: 0101
+    disableContinueButton: 
+    dialogueAdvancedByPickingUp: 
+    dialogueAdvancedByPlacing: 
+    dialogueAdvancedByRotating: 
+    dialogueAdvancedByCompleting: 
+    dialogueUnloadCurentLevel: 
+    dialogueLoadNextLevel: 
+  - name: Professor Paws
+    icon: {fileID: 21300000, guid: 44ba0b82da8703b49897376434075356, type: 3}
+    isIconOnLeft: 1
+    sentences:
+    - What benefit does ethanol offer, Dr?
+    focusEnabled: 01
+    disableContinueButton: 
+    dialogueAdvancedByPickingUp: 
+    dialogueAdvancedByPlacing: 
+    dialogueAdvancedByRotating: 
+    dialogueAdvancedByCompleting: 
+    dialogueUnloadCurentLevel: 
+    dialogueLoadNextLevel: 
+  - name: Dr. Mittens
+    icon: {fileID: 21300000, guid: f3107641950cd0d4e9908699c8e9d2a6, type: 3}
+    isIconOnLeft: 0
+    sentences:
+    - "Ah, well, Professor\u2026 you see\u2026 ethanol could be used\u2026"
+    focusEnabled: 01
+    disableContinueButton: 0001010101010000
+    dialogueAdvancedByPickingUp: 0001000000000000
+    dialogueAdvancedByPlacing: 0000010101010000
+    dialogueAdvancedByRotating: 
+    dialogueAdvancedByCompleting: 
+    dialogueUnloadCurentLevel: 
+    dialogueLoadNextLevel: 
+  - name: Professor Paws
+    icon: {fileID: 21300000, guid: 44ba0b82da8703b49897376434075356, type: 3}
+    isIconOnLeft: 0
+    sentences:
+    - Oh, I see, Doctor. As a cleaning agent after our delicious kibble!
+    focusEnabled: 01
+    disableContinueButton: 
+    dialogueAdvancedByPickingUp: 
+    dialogueAdvancedByPlacing: 
+    dialogueAdvancedByRotating: 01
+    dialogueAdvancedByCompleting: 
+    dialogueUnloadCurentLevel: 
+    dialogueLoadNextLevel: 
+  - name: Dr Mittens
+    icon: {fileID: 21300000, guid: f3107641950cd0d4e9908699c8e9d2a6, type: 3}
+    isIconOnLeft: 0
+    sentences:
+    - Uh, most certainly! Just a cleaning agent. Certainly not for delicious cocktails
+      after dinner!
+    focusEnabled: 01
+    disableContinueButton: 
+    dialogueAdvancedByPickingUp: 
+    dialogueAdvancedByPlacing: 
+    dialogueAdvancedByRotating: 01
+    dialogueAdvancedByCompleting: 
+    dialogueUnloadCurentLevel: 
+    dialogueLoadNextLevel: 
+  - name: Professor Paws
+    icon: {fileID: 21300000, guid: 44ba0b82da8703b49897376434075356, type: 3}
+    isIconOnLeft: 0
+    sentences:
+    - "Well, let\u2019s hop to it! May the ethanol synthesis process commence!"
+    focusEnabled: 01
+    disableContinueButton: 
+    dialogueAdvancedByPickingUp: 
+    dialogueAdvancedByPlacing: 
+    dialogueAdvancedByRotating: 01
+    dialogueAdvancedByCompleting: 
+    dialogueUnloadCurentLevel: 
+    dialogueLoadNextLevel: 
+--- !u!4 &1583515459
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1583515457}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1638333946
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1813,6 +1938,79 @@ PrefabInstance:
       propertyPath: transitionIconAnimator
       value: 
       objectReference: {fileID: 1689017776}
+    - target: {fileID: 457408817641924523, guid: f4fc65cb2e734324b9bb25162b746a8f,
+        type: 3}
+      propertyPath: winDialogue.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 457408817641924523, guid: f4fc65cb2e734324b9bb25162b746a8f,
+        type: 3}
+      propertyPath: winDialogue.Array.data[0].icon
+      value: 
+      objectReference: {fileID: 21300000, guid: f3107641950cd0d4e9908699c8e9d2a6,
+        type: 3}
+    - target: {fileID: 457408817641924523, guid: f4fc65cb2e734324b9bb25162b746a8f,
+        type: 3}
+      propertyPath: winDialogue.Array.data[0].name
+      value: Dr Mittens
+      objectReference: {fileID: 0}
+    - target: {fileID: 457408817641924523, guid: f4fc65cb2e734324b9bb25162b746a8f,
+        type: 3}
+      propertyPath: winDialogue.Array.data[1].icon
+      value: 
+      objectReference: {fileID: 21300000, guid: f3107641950cd0d4e9908699c8e9d2a6,
+        type: 3}
+    - target: {fileID: 457408817641924523, guid: f4fc65cb2e734324b9bb25162b746a8f,
+        type: 3}
+      propertyPath: winDialogue.Array.data[1].name
+      value: Dr Mittens
+      objectReference: {fileID: 0}
+    - target: {fileID: 457408817641924523, guid: f4fc65cb2e734324b9bb25162b746a8f,
+        type: 3}
+      propertyPath: winDialogue.Array.data[0].sentences.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 457408817641924523, guid: f4fc65cb2e734324b9bb25162b746a8f,
+        type: 3}
+      propertyPath: winDialogue.Array.data[1].sentences.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 457408817641924523, guid: f4fc65cb2e734324b9bb25162b746a8f,
+        type: 3}
+      propertyPath: winDialogue.Array.data[0].sentences.Array.data[0]
+      value: Yay! Ethanol has been synthesised!
+      objectReference: {fileID: 0}
+    - target: {fileID: 457408817641924523, guid: f4fc65cb2e734324b9bb25162b746a8f,
+        type: 3}
+      propertyPath: winDialogue.Array.data[0].sentences.Array.data[1]
+      value: "\u2026and now for some tasty pi\xF1a coladas\u2026"
+      objectReference: {fileID: 0}
+    - target: {fileID: 457408817641924523, guid: f4fc65cb2e734324b9bb25162b746a8f,
+        type: 3}
+      propertyPath: winDialogue.Array.data[1].focusEnabled.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 457408817641924523, guid: f4fc65cb2e734324b9bb25162b746a8f,
+        type: 3}
+      propertyPath: winDialogue.Array.data[1].sentences.Array.data[0]
+      value: 'Congratulations! We have made some introductory molecules here today. '
+      objectReference: {fileID: 0}
+    - target: {fileID: 457408817641924523, guid: f4fc65cb2e734324b9bb25162b746a8f,
+        type: 3}
+      propertyPath: winDialogue.Array.data[1].sentences.Array.data[1]
+      value: We hope we can see you back at the lab some day soon to continue the
+        efforts!
+      objectReference: {fileID: 0}
+    - target: {fileID: 457408817641924523, guid: f4fc65cb2e734324b9bb25162b746a8f,
+        type: 3}
+      propertyPath: winDialogue.Array.data[1].focusEnabled.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 457408817641924523, guid: f4fc65cb2e734324b9bb25162b746a8f,
+        type: 3}
+      propertyPath: winDialogue.Array.data[1].focusEnabled.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7066446884495393718, guid: f4fc65cb2e734324b9bb25162b746a8f,
         type: 3}
       propertyPath: m_Name
@@ -1968,3 +2166,4 @@ SceneRoots:
   - {fileID: 3865509784328645114}
   - {fileID: 8621272279974508781}
   - {fileID: 1689017774}
+  - {fileID: 1583515459}
