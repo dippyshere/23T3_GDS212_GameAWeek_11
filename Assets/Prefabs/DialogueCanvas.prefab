@@ -564,7 +564,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: a4b2f475ad185b8469cd2c69a0d88976, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -693,6 +693,7 @@ MonoBehaviour:
   iconLeft: {fileID: 1571726473718247144}
   iconRight: {fileID: 8241641803925403369}
   continueButton: {fileID: 2198808009579678481}
+  focusPostProcess: {fileID: 0}
   animator: {fileID: 168434460760287841}
 --- !u!1 &6258411829432770991
 GameObject:

@@ -29,8 +29,14 @@ public class PlayerController : MonoBehaviour
     private List<GameObject> pendingObjects = new List<GameObject>();
     private List<GameObject> pendingFallbackObjects = new List<GameObject>();
     private GameObject heldObject;
+    private DialogueManager dialogueManager;
 
     private float pushTimer = 0f;
+
+    private void Start()
+    {
+        dialogueManager = FindObjectOfType<DialogueManager>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -390,6 +396,7 @@ public class PlayerController : MonoBehaviour
                 spawnedPickupEffect.transform.localScale = new Vector3(6.4f, 6.4f, 6.4f);
                 break;
         }
+        dialogueManager.AdvancePickup();
     }
 
     /// <summary>
@@ -415,6 +422,7 @@ public class PlayerController : MonoBehaviour
                 pendingObjects.Add(collider.gameObject);
             }
         }
+        dialogueManager.AdvancePlacement();
     }
 
     /// <summary>
@@ -424,6 +432,7 @@ public class PlayerController : MonoBehaviour
     private void RotateObject(GameObject obj)
     {
         obj.GetComponent<AtomManager>().RotateAtom();
+        dialogueManager.AdvanceRotate();
     }
 
     /// <summary>

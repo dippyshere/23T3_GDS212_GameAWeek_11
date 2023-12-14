@@ -14,5 +14,6 @@ public class Dialogue
     public bool[] disableContinueButton;
     public bool[] dialogueAdvancedByPickingUp;
     public bool[] dialogueAdvancedByPlacing;
+    public bool[] dialogueAdvancedByRotating;
     public bool[] dialogueAdvancedByCompleting;
 }

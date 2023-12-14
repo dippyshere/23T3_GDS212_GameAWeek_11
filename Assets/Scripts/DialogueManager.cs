@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
@@ -11,6 +12,7 @@ public class DialogueManager : MonoBehaviour
     public Image iconLeft;
     public Image iconRight;
     public Button continueButton;
+    public Volume focusPostProcess;
 
     public Animator animator;
 
@@ -52,14 +54,14 @@ public class DialogueManager : MonoBehaviour
             iconRight.enabled = true;
             iconLeft.enabled = false;
         }
-        if (dialogue.focusEnabled.Length > 0 && dialogue.focusEnabled[0])
-        {
-            // focus functionality enable
-        }
-        else
-        {
-            // focus functionality disable
-        }
+        //if (dialogue.focusEnabled.Length > 0 && dialogue.focusEnabled[0])
+        //{
+        //    StartCoroutine(EnableFocus());
+        //}
+        //else
+        //{
+        //    StartCoroutine(DisableFocus());
+        //}
         if (dialogue.disableContinueButton.Length > 0 && dialogue.disableContinueButton[0])
         {
             continueButton.interactable = false;
@@ -84,6 +86,7 @@ public class DialogueManager : MonoBehaviour
     {
         if (currentDialogue.dialogueAdvancedByPlacing.Length > sentenceIndex && currentDialogue.dialogueAdvancedByPlacing[sentenceIndex])
         {
+            Debug.Log("Advanced by placing");
             DisplayNextSentence();
         }
     }
@@ -92,6 +95,16 @@ public class DialogueManager : MonoBehaviour
     {
         if (currentDialogue.dialogueAdvancedByPickingUp.Length > sentenceIndex && currentDialogue.dialogueAdvancedByPickingUp[sentenceIndex])
         {
+            Debug.Log("Advanced by picking up");
+            DisplayNextSentence();
+        }
+    }
+
+    public void AdvanceRotate()
+    {
+        if (currentDialogue.dialogueAdvancedByRotating.Length > sentenceIndex && currentDialogue.dialogueAdvancedByRotating[sentenceIndex])
+        {
+            Debug.Log("Advanced by rotating");
             DisplayNextSentence();
         }
     }
@@ -100,6 +113,7 @@ public class DialogueManager : MonoBehaviour
     {
         if (currentDialogue.dialogueAdvancedByCompleting.Length > sentenceIndex && currentDialogue.dialogueAdvancedByCompleting[sentenceIndex])
         {
+            Debug.Log("Advanced by completing");
             DisplayNextSentence();
         }
     }
@@ -113,11 +127,11 @@ public class DialogueManager : MonoBehaviour
         }
         if (sentenceIndex < currentDialogue.focusEnabled.Length && currentDialogue.focusEnabled[sentenceIndex])
         {
-            // focus functionality enable
+            StartCoroutine(EnableFocus());
         }
         else
         {
-            // focus functionality disable
+            StartCoroutine(DisableFocus());
         }
         if (sentenceIndex < currentDialogue.disableContinueButton.Length && currentDialogue.disableContinueButton[sentenceIndex])
         {
@@ -155,8 +169,7 @@ public class DialogueManager : MonoBehaviour
         foreach (string letter in sentenceArray)
         {
             dialogueText.text += letter;
-            Debug.Log(letter);
-            yield return new WaitForSeconds(0.033f);
+            yield return new WaitForSecondsRealtime(0.033f);
         }
     }
 
@@ -176,5 +189,37 @@ public class DialogueManager : MonoBehaviour
             animator.SetBool("DialogueActive", false);
             continueButton.interactable = false;
         }
+    }
+
+    private IEnumerator EnableFocus()
+    {
+        StopCoroutine(DisableFocus());
+        focusPostProcess.weight = 1;
+        Time.timeScale = 0.25f;
+        yield return null;
+        //float t = 0;
+        //while (t < 1)
+        //{
+        //    t += Time.unscaledDeltaTime * 2;
+        //    focusPostProcess.weight = Mathf.Lerp(0, 1, t);
+        //    Time.timeScale = Mathf.Lerp(1, 0.5f, t);
+        //    yield return null;
+        //}
+    }
+
+    private IEnumerator DisableFocus()
+    {
+        StopCoroutine(EnableFocus());
+        focusPostProcess.weight = 0;
+        Time.timeScale = 1f;
+        yield return null;
+        //float t = 0;
+        //while (t < 1)
+        //{
+        //    t += Time.unscaledDeltaTime * 2;
+        //    focusPostProcess.weight = Mathf.Lerp(1, 0, t);
+        //    Time.timeScale = Mathf.Lerp(0.5f, 1, t);
+        //    yield return null;
+        //}
     }
 }
