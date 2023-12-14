@@ -188,6 +188,11 @@ public class DialogueManager : MonoBehaviour
 
     void EndDialogue()
     {
+        if (sentenceIndex < currentDialogue.dialogueUnloadCurentLevel.Length && currentDialogue.dialogueUnloadCurentLevel[sentenceIndex])
+        {
+            PlayerController playerController = FindObjectOfType<PlayerController>();
+            playerController.LoadNextLevel();
+        }
         if (currentDialogues!= null && currentDialogueIndex < currentDialogues.Length - 1)
         {
             currentDialogueIndex++;
