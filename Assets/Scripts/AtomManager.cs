@@ -71,6 +71,7 @@ public class AtomManager : MonoBehaviour
         rotationOffset = Mathf.Round(playerController.transform.rotation.eulerAngles.y / 90) * 90 - playerController.transform.rotation.eulerAngles.y;
         // Debug.Log(rotationOffset);
         transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y - rotationOffset, 0);
+        rotationOffset = 0;
         // CancelInvoke("SetKinematicTrue");
         // SetKinematic(false);
         //if (hingeJointToPlayer != null)
@@ -262,7 +263,7 @@ public class AtomManager : MonoBehaviour
         if (held)
         {
             transform.position = playerController.pickupTargetOverhead.position;
-            transform.rotation = Quaternion.Euler(0, playerController.transform.rotation.eulerAngles.y - 90, 0);
+            transform.rotation = Quaternion.Euler(0, playerController.transform.rotation.eulerAngles.y - 90 + rotationOffset, 0);
             switch (atomSize)
             {
                 case AtomSize.Small:
@@ -317,7 +318,7 @@ public class AtomManager : MonoBehaviour
     public void RotateAtom()
     {
         //Destroy(hingeJointToPlayer);
-        transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y + 90, 0);
+        rotationOffset += 90;
         //hingeJointToPlayer = gameObject.AddComponent<HingeJoint>();
         //hingeJointToPlayer.connectedBody = playerController.GetComponent<Rigidbody>();
         //hingeJointToPlayer.axis = new Vector3(0, 0, 1);

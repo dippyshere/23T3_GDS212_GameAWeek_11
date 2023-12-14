@@ -13,8 +13,10 @@ public class LevelManager : MonoBehaviour
     
     [Header("References")]
     [SerializeField, Tooltip("Reference to the Win Screen UI object (To enable upon completing the win condition)")] private GameObject winScreen;
-    [SerializeField, Tooltip("Reference to the animator responsible for the level transitions (To trigger the animation to play when changing levels)")] private Animator transitionAnimator;
-    [SerializeField, Tooltip("Reference to the animator responsible for the level transitions (To trigger the animation to play when changing levels)")] private Animator transitionIconAnimator;
+    [SerializeField, Tooltip("Reference to the animator responsible for the level transitions (To trigger the animation to play when changing levels)")] public Animator transitionAnimator;
+    [SerializeField, Tooltip("Reference to the animator responsible for the level transitions (To trigger the animation to play when changing levels)")] public Animator transitionIconAnimator;
+
+    private PlayerController playerController;
 
     // private AsyncOperation levelLoad;
 
@@ -36,6 +38,7 @@ public class LevelManager : MonoBehaviour
             // load the background scene on top of the current scene
             SceneManager.LoadSceneAsync("Background Scene", LoadSceneMode.Additive);
         }
+        playerController = FindObjectOfType<PlayerController>();
     }
 
     //private void FixedUpdate()
@@ -77,31 +80,38 @@ public class LevelManager : MonoBehaviour
         {
             button.interactable = false;
         }
-        switch (requiredCompound.name)
+        if (requiredCompound.name == Compound.CompoundType.None)
         {
-            case Compound.CompoundType.None:
-                StartCoroutine(LoadLevel("Level 1"));
-                break;
-            case Compound.CompoundType.Water:
-                StartCoroutine(LoadLevel("Level 2"));
-                break;
-            case Compound.CompoundType.Methane:
-                StartCoroutine(LoadLevel("Level 3"));
-                break;
-            case Compound.CompoundType.Ammonia:
-                StartCoroutine(LoadLevel("Level 4"));
-                break;
-            case Compound.CompoundType.Methanol:
-                StartCoroutine(LoadLevel("Level 5"));
-                break;
-            case Compound.CompoundType.AmmoniumHydroxide:
-                StartCoroutine(LoadLevel("Level 6"));
-                //SceneManager.LoadScene("Menu");
-                break;
-            case Compound.CompoundType.AcetateAcid:
-                StartCoroutine(LoadLevel("Menu"));
-                break;
+            StartCoroutine(LoadLevel("Water Scene"));
+            return;
         }
+        playerController = FindObjectOfType<PlayerController>();
+        playerController.LoadNextLevel();
+        //switch (requiredCompound.name)
+        //{
+        //    case Compound.CompoundType.None:
+        //        StartCoroutine(LoadLevel("Water Scene"));
+        //        break;
+        //    case Compound.CompoundType.Water:
+        //        StartCoroutine(LoadLevel("Level 2"));
+        //        break;
+        //    case Compound.CompoundType.Methane:
+        //        StartCoroutine(LoadLevel("Level 3"));
+        //        break;
+        //    case Compound.CompoundType.Ammonia:
+        //        StartCoroutine(LoadLevel("Level 4"));
+        //        break;
+        //    case Compound.CompoundType.Methanol:
+        //        StartCoroutine(LoadLevel("Level 5"));
+        //        break;
+        //    case Compound.CompoundType.AmmoniumHydroxide:
+        //        StartCoroutine(LoadLevel("Level 6"));
+        //        //SceneManager.LoadScene("Menu");
+        //        break;
+        //    case Compound.CompoundType.AcetateAcid:
+        //        StartCoroutine(LoadLevel("Menu"));
+        //        break;
+        //}
     }
 
     /// <summary>
@@ -109,7 +119,7 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     /// <param name="levelName">The name of the level to load</param>
     /// <returns></returns>
-    IEnumerator LoadLevel(string levelName)
+    public IEnumerator LoadLevel(string levelName)
     {
         transitionAnimator.SetTrigger("Start");
         transitionIconAnimator.SetTrigger("Start");

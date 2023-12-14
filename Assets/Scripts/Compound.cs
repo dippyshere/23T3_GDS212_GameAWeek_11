@@ -212,6 +212,8 @@ public class Compound
     {
         None,
         Water,
+        Glycolaldehyde,
+        Ethanol,
         Methane,
         Ammonia,
         Methanol,

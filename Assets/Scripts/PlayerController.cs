@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Tooltip("Range around the player to check for pickup objects as a 'fallback' to trigger based pending objects")] private float pickupFallbackRange = 0.25f;
     [SerializeField, Tooltip("Multiplier on run animation speed")] private float animationWalkMultiplier = 0.4f;
     [SerializeField, Tooltip("How long the player needs to push an atom for before it will move")] private float atomPushDuration = 0.4f;
+    [SerializeField, Tooltip("The levels which the player needs to complete in order")] private List<Compound.CompoundType> atomLevelsList = new List<Compound.CompoundType>();
     [Header("References")]
     [SerializeField, Tooltip("Reference to the player's animator controller for setting run + run speed")] private Animator animator;
     [SerializeField, Tooltip("Reference to the level manager to trigger win condition checks unpon dropping an object")] private LevelManager levelManager;
@@ -32,6 +34,7 @@ public class PlayerController : MonoBehaviour
     private DialogueManager dialogueManager;
 
     private float pushTimer = 0f;
+    private int currentAtomLevel = 0;
 
     private void Start()
     {
@@ -181,6 +184,11 @@ public class PlayerController : MonoBehaviour
             {
                 foreach (GameObject obj in pendingObjects)
                 {
+                    if (obj.GetComponent<AtomManager>() == null)
+                    {
+                        pendingObjects.Remove(obj);
+                        continue;
+                    }
                     obj.GetComponent<AtomManager>().UnhighlightAtom();
                 }
                 // find the object closest to the pickup small transform
@@ -475,5 +483,36 @@ public class PlayerController : MonoBehaviour
     {
         pendingObjects.Clear();
         heldObject = null;
+    }
+
+    public void LoadNextLevel()
+    {
+        currentAtomLevel++;
+        if (currentAtomLevel >= atomLevelsList.Count)
+        {
+            StartCoroutine(levelManager.LoadLevel("Menu"));
+            return;
+        }
+        StartCoroutine(WaitForNextScene());
+    }
+
+    private IEnumerator WaitForNextScene()
+    {
+        levelManager.transitionAnimator.SetTrigger("Start");
+        levelManager.transitionIconAnimator.SetTrigger("Start");
+
+        yield return new WaitForSeconds(1);
+        AsyncOperation asyncOperation = SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().name);
+        while (!asyncOperation.isDone)
+        {
+            yield return null;
+        }
+        asyncOperation = SceneManager.LoadSceneAsync(atomLevelsList[currentAtomLevel].ToString() + " Scene", LoadSceneMode.Additive);
+        while (!asyncOperation.isDone)
+        {
+            yield return null;
+        }
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName(atomLevelsList[currentAtomLevel].ToString() + " Scene"));
+        levelManager = FindObjectOfType<LevelManager>();
     }
 }
