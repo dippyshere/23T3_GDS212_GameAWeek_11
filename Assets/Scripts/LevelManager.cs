@@ -18,6 +18,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField, Tooltip("Reference to the animator responsible for the level transitions (To trigger the animation to play when changing levels)")] public Animator transitionIconAnimator;
 
     private PlayerController playerController;
+    private bool hasWon = false;
 
     // private AsyncOperation levelLoad;
 
@@ -56,10 +57,16 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     public void CheckWinCondition()
     {
-        if (requiredCompound.IsAssembled())
+        if (requiredCompound.IsAssembled() && !hasWon)
         {
             Debug.Log("You win!");
             //winScreen.SetActive(true);
+            hasWon = true;
+            if (requiredCompound.name == Compound.CompoundType.None)
+            {
+                StartCoroutine(LoadLevel("Water Scene"));
+                return;
+            }
             FindObjectOfType<DialogueManager>().StartMultipleDialogue(winDialogue);
         }
     }
