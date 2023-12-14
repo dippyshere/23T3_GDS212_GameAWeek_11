@@ -206,6 +206,7 @@ public class DialogueManager : MonoBehaviour
             }
             animator.SetBool("DialogueActive", false);
             continueButton.interactable = false;
+            StartCoroutine(DisableFocus());
         }
     }
 
