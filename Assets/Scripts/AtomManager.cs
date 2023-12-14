@@ -337,7 +337,35 @@ public class AtomManager : MonoBehaviour
 
         foreach (Transform connectionPoint in connectionPoints)
         {
-            if (connectionPoint.gameObject.activeSelf)
+            if (!connectionPoint.gameObject.activeSelf)
+            {
+                if (connections[connectionPoints.IndexOf(connectionPoint)] != null)
+                {
+                    Transform closestConnectionPoint = connections[connectionPoints.IndexOf(connectionPoint)].transform;
+                    if (closestConnectionPoint != null && Vector3.Distance(connectionPoint.position, closestConnectionPoint.position) <= 0.1 && Mathf.Abs(connectionPoint.rotation.eulerAngles.y - closestConnectionPoint.rotation.eulerAngles.y).ToString() == "180")
+                    {
+                        Debug.Log("Valid connection on " + connectionPoint.name);
+                        Debug.Log(closestConnectionPoint != null);
+                        Debug.Log(Vector3.Distance(connectionPoint.position, closestConnectionPoint.position) <= 0.1);
+                        Debug.Log(Mathf.Abs(connectionPoint.rotation.eulerAngles.y - closestConnectionPoint.rotation.eulerAngles.y).ToString() == "180");
+                        Debug.Log(Mathf.Abs(connectionPoint.rotation.eulerAngles.y - closestConnectionPoint.rotation.eulerAngles.y).ToString());
+                        continue;
+                    }
+                    else
+                    {
+                        Debug.Log("Invalid connection on " + connectionPoint.name);
+                        Debug.Log(closestConnectionPoint != null);
+                        Debug.Log(Vector3.Distance(connectionPoint.position, closestConnectionPoint.position) <= 0.1);
+                        Debug.Log(Mathf.Abs(connectionPoint.rotation.eulerAngles.y - closestConnectionPoint.rotation.eulerAngles.y).ToString() == "180");
+                        Debug.Log(Mathf.Abs(connectionPoint.rotation.eulerAngles.y - closestConnectionPoint.rotation.eulerAngles.y).ToString());
+                        connections[connectionPoints.IndexOf(connectionPoint)].SetActive(true);
+                        connections[connectionPoints.IndexOf(connectionPoint)].transform.parent.GetComponent<AtomManager>().connections[connections[connectionPoints.IndexOf(connectionPoint)].transform.parent.GetComponent<AtomManager>().connectionPoints.IndexOf(connections[connectionPoints.IndexOf(connectionPoint)].transform)] = null;
+                        connections[connectionPoints.IndexOf(connectionPoint)] = null;
+                        connectionPoint.gameObject.SetActive(true);
+                    }
+                }
+            }
+            else
             {
                 Collider[] colliders = Physics.OverlapSphere(connectionPoint.position, 0.25f);
                 foreach (Collider collider in colliders)
@@ -363,9 +391,13 @@ public class AtomManager : MonoBehaviour
                             {
                                 continue;
                             }
-                            if (Mathf.Abs(connectionPoint.rotation.eulerAngles.y - closestConnectionPoint.rotation.eulerAngles.y) > 90)
+                            if (Mathf.Abs(connectionPoint.rotation.eulerAngles.y - closestConnectionPoint.rotation.eulerAngles.y).ToString() != "180")
                             {
                                 Debug.Log("Bad angle (" + (connectionPoint.rotation.eulerAngles.y - closestConnectionPoint.rotation.eulerAngles.y) + ")");
+                                connections[connectionPoints.IndexOf(connectionPoint)].SetActive(true);
+                                connections[connectionPoints.IndexOf(connectionPoint)].transform.parent.GetComponent<AtomManager>().connections[connections[connectionPoints.IndexOf(connectionPoint)].transform.parent.GetComponent<AtomManager>().connectionPoints.IndexOf(connections[connectionPoints.IndexOf(connectionPoint)].transform)] = null;
+                                connections[connectionPoints.IndexOf(connectionPoint)] = null;
+                                connectionPoint.gameObject.SetActive(true);
                                 continue;
                             }
                             // disable both connection points
@@ -408,7 +440,27 @@ public class AtomManager : MonoBehaviour
 
         foreach (Transform connectionPoint in connectionPoints)
         {
-            if (connectionPoint.gameObject.activeSelf)
+            if (!connectionPoint.gameObject.activeSelf)
+            {
+                if (connections[connectionPoints.IndexOf(connectionPoint)] != null)
+                {
+                    Transform closestConnectionPoint = connections[connectionPoints.IndexOf(connectionPoint)].transform;
+                    if (closestConnectionPoint != null && Vector3.Distance(connectionPoint.position, closestConnectionPoint.position) <= 0.1 && Mathf.Abs(connectionPoint.rotation.eulerAngles.y - closestConnectionPoint.rotation.eulerAngles.y).ToString() == "180")
+                    {
+                        Debug.Log("Valid connection on " + connectionPoint.name);
+                        continue;
+                    }
+                    else
+                    {
+                        Debug.Log("Invalid connection on " + connectionPoint.name);
+                        connections[connectionPoints.IndexOf(connectionPoint)].SetActive(true);
+                        connections[connectionPoints.IndexOf(connectionPoint)].transform.parent.GetComponent<AtomManager>().connections[connections[connectionPoints.IndexOf(connectionPoint)].transform.parent.GetComponent<AtomManager>().connectionPoints.IndexOf(connections[connectionPoints.IndexOf(connectionPoint)].transform)] = null;
+                        connections[connectionPoints.IndexOf(connectionPoint)] = null;
+                        connectionPoint.gameObject.SetActive(true);
+                    }
+                }
+            }
+            else
             {
                 Collider[] colliders = Physics.OverlapSphere(connectionPoint.position, 0.25f);
                 foreach (Collider collider in colliders)
@@ -433,6 +485,23 @@ public class AtomManager : MonoBehaviour
                             if (connectionPoints.IndexOf(connectionPoint) < 0)
                             {
                                 continue;
+                            }
+                            if (Mathf.Abs(connectionPoint.rotation.eulerAngles.y - closestConnectionPoint.rotation.eulerAngles.y).ToString() != "180") // this looks stupid but for SOME REASON doing any other way does not work as expected
+                            {
+                                Debug.Log("Bad angle (" + Mathf.Abs(connectionPoint.rotation.eulerAngles.y - closestConnectionPoint.rotation.eulerAngles.y) + ")");
+                                //Debug.Log((int)Mathf.Abs(connectionPoint.rotation.eulerAngles.y - closestConnectionPoint.rotation.eulerAngles.y) != 180);
+                                //Debug.Log(connectionPoint.rotation.eulerAngles.y);
+                                //Debug.Log(closestConnectionPoint.rotation.eulerAngles.y);
+                                //Debug.Log(connectionPoint.rotation.eulerAngles.y - closestConnectionPoint.rotation.eulerAngles.y);
+                                //Debug.Log(Mathf.Abs(connectionPoint.rotation.eulerAngles.y - closestConnectionPoint.rotation.eulerAngles.y));
+                                //Debug.Log(Mathf.Abs(connectionPoint.rotation.eulerAngles.y - closestConnectionPoint.rotation.eulerAngles.y).ToString() != "180");
+                                //Debug.Log(270f - 90f);
+                                //Debug.Log(Mathf.Abs(270f - 90f));
+                                //Debug.Log(Mathf.Abs(270f - 90f) != (float)180);
+                                connections[connectionPoints.IndexOf(connectionPoint)].SetActive(true);
+                                connections[connectionPoints.IndexOf(connectionPoint)].transform.parent.GetComponent<AtomManager>().connections[connections[connectionPoints.IndexOf(connectionPoint)].transform.parent.GetComponent<AtomManager>().connectionPoints.IndexOf(connections[connectionPoints.IndexOf(connectionPoint)].transform)] = null;
+                                connections[connectionPoints.IndexOf(connectionPoint)] = null;
+                                connectionPoint.gameObject.SetActive(true);
                             }
                             // disable both connection points
                             connectionPoint.gameObject.SetActive(false);
