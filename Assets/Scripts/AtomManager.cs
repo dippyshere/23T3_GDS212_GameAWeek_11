@@ -345,19 +345,19 @@ public class AtomManager : MonoBehaviour
                     if (closestConnectionPoint != null && Vector3.Distance(connectionPoint.position, closestConnectionPoint.position) <= 0.1 && Mathf.Abs(connectionPoint.rotation.eulerAngles.y - closestConnectionPoint.rotation.eulerAngles.y).ToString() == "180")
                     {
                         Debug.Log("Valid connection on " + connectionPoint.name);
-                        Debug.Log(closestConnectionPoint != null);
-                        Debug.Log(Vector3.Distance(connectionPoint.position, closestConnectionPoint.position) <= 0.1);
-                        Debug.Log(Mathf.Abs(connectionPoint.rotation.eulerAngles.y - closestConnectionPoint.rotation.eulerAngles.y).ToString() == "180");
-                        Debug.Log(Mathf.Abs(connectionPoint.rotation.eulerAngles.y - closestConnectionPoint.rotation.eulerAngles.y).ToString());
+                        //Debug.Log(closestConnectionPoint != null);
+                        //Debug.Log(Vector3.Distance(connectionPoint.position, closestConnectionPoint.position) <= 0.1);
+                        //Debug.Log(Mathf.Abs(connectionPoint.rotation.eulerAngles.y - closestConnectionPoint.rotation.eulerAngles.y).ToString() == "180");
+                        //Debug.Log(Mathf.Abs(connectionPoint.rotation.eulerAngles.y - closestConnectionPoint.rotation.eulerAngles.y).ToString());
                         continue;
                     }
                     else
                     {
                         Debug.Log("Invalid connection on " + connectionPoint.name);
-                        Debug.Log(closestConnectionPoint != null);
-                        Debug.Log(Vector3.Distance(connectionPoint.position, closestConnectionPoint.position) <= 0.1);
-                        Debug.Log(Mathf.Abs(connectionPoint.rotation.eulerAngles.y - closestConnectionPoint.rotation.eulerAngles.y).ToString() == "180");
-                        Debug.Log(Mathf.Abs(connectionPoint.rotation.eulerAngles.y - closestConnectionPoint.rotation.eulerAngles.y).ToString());
+                        //Debug.Log(closestConnectionPoint != null);
+                        //Debug.Log(Vector3.Distance(connectionPoint.position, closestConnectionPoint.position) <= 0.1);
+                        //Debug.Log(Mathf.Abs(connectionPoint.rotation.eulerAngles.y - closestConnectionPoint.rotation.eulerAngles.y).ToString() == "180");
+                        //Debug.Log(Mathf.Abs(connectionPoint.rotation.eulerAngles.y - closestConnectionPoint.rotation.eulerAngles.y).ToString());
                         connections[connectionPoints.IndexOf(connectionPoint)].SetActive(true);
                         connections[connectionPoints.IndexOf(connectionPoint)].transform.parent.GetComponent<AtomManager>().connections[connections[connectionPoints.IndexOf(connectionPoint)].transform.parent.GetComponent<AtomManager>().connectionPoints.IndexOf(connections[connectionPoints.IndexOf(connectionPoint)].transform)] = null;
                         connections[connectionPoints.IndexOf(connectionPoint)] = null;

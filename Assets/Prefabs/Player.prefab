@@ -235,7 +235,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 10
   sprintSpeed: 1.5
-  turnSpeed: 10
+  turnSpeed: 13
   velocityDampeningSpeed: 10
   pickupFallbackRange: 0.25
   animationWalkMultiplier: 0.12

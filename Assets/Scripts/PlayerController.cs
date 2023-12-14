@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         dialogueManager = FindObjectOfType<DialogueManager>();
+        levelManager = FindObjectOfType<LevelManager>();
     }
 
     // Update is called once per frame

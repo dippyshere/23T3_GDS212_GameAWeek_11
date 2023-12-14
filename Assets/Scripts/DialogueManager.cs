@@ -84,36 +84,36 @@ public class DialogueManager : MonoBehaviour
 
     public void AdvancePlacement()
     {
-        if (currentDialogue.dialogueAdvancedByPlacing.Length > sentenceIndex && currentDialogue.dialogueAdvancedByPlacing[sentenceIndex])
+        if (currentDialogue.dialogueAdvancedByPlacing.Length > sentenceIndex - 1 && currentDialogue.dialogueAdvancedByPlacing[sentenceIndex - 1])
         {
-            Debug.Log("Advanced by placing");
+            Debug.Log("Advanced by placing for sentence index " + sentenceIndex);
             DisplayNextSentence();
         }
     }
 
     public void AdvancePickup()
     {
-        if (currentDialogue.dialogueAdvancedByPickingUp.Length > sentenceIndex && currentDialogue.dialogueAdvancedByPickingUp[sentenceIndex])
+        if (currentDialogue.dialogueAdvancedByPickingUp.Length > sentenceIndex - 1 && currentDialogue.dialogueAdvancedByPickingUp[sentenceIndex - 1])
         {
-            Debug.Log("Advanced by picking up");
+            Debug.Log("Advanced by picking up for sentence index " + sentenceIndex);
             DisplayNextSentence();
         }
     }
 
     public void AdvanceRotate()
     {
-        if (currentDialogue.dialogueAdvancedByRotating.Length > sentenceIndex && currentDialogue.dialogueAdvancedByRotating[sentenceIndex])
+        if (currentDialogue.dialogueAdvancedByRotating.Length > sentenceIndex - 1 && currentDialogue.dialogueAdvancedByRotating[sentenceIndex - 1])
         {
-            Debug.Log("Advanced by rotating");
+            Debug.Log("Advanced by rotating for sentence index " + sentenceIndex);
             DisplayNextSentence();
         }
     }
 
     public void AdvanceCompletion()
     {
-        if (currentDialogue.dialogueAdvancedByCompleting.Length > sentenceIndex && currentDialogue.dialogueAdvancedByCompleting[sentenceIndex])
+        if (currentDialogue.dialogueAdvancedByCompleting.Length > sentenceIndex - 1 && currentDialogue.dialogueAdvancedByCompleting[sentenceIndex - 1])
         {
-            Debug.Log("Advanced by completing");
+            Debug.Log("Advanced by completing for sentence index " + sentenceIndex);
             DisplayNextSentence();
         }
     }
@@ -124,6 +124,11 @@ public class DialogueManager : MonoBehaviour
         {
             EndDialogue();
             return;
+        }
+        if (sentenceIndex > 0)
+        {
+            AudioManager audioManager = FindObjectOfType<AudioManager>();
+            audioManager.PlaySoundEffect(0);
         }
         if (sentenceIndex < currentDialogue.focusEnabled.Length && currentDialogue.focusEnabled[sentenceIndex])
         {
@@ -169,7 +174,7 @@ public class DialogueManager : MonoBehaviour
         foreach (string letter in sentenceArray)
         {
             dialogueText.text += letter;
-            yield return new WaitForSecondsRealtime(0.033f);
+            yield return new WaitForSecondsRealtime(0.016f);
         }
     }
 
@@ -179,6 +184,8 @@ public class DialogueManager : MonoBehaviour
         {
             currentDialogueIndex++;
             StartDialogue(currentDialogues[currentDialogueIndex]);
+            AudioManager audioManager = FindObjectOfType<AudioManager>();
+            audioManager.PlaySoundEffect(0);
         }
         else
         {
@@ -186,6 +193,8 @@ public class DialogueManager : MonoBehaviour
             {
                 currentDialogues = null;
             }
+            AudioManager audioManager = FindObjectOfType<AudioManager>();
+            audioManager.PlaySoundEffect(1);
             animator.SetBool("DialogueActive", false);
             continueButton.interactable = false;
         }
