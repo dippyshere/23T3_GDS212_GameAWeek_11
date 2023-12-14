@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class IntroSceneForwarder : MonoBehaviour
 {
     [SerializeField] private Animator transitionAnimator;
+    [SerializeField] private Animator transitionIconAnimator;
     private bool started = true;
 
     private void Start()
@@ -31,6 +32,7 @@ public class IntroSceneForwarder : MonoBehaviour
     IEnumerator LoadLevel(string levelName)
     {
         transitionAnimator.SetTrigger("Start");
+        transitionIconAnimator.SetTrigger("Start");
 
         yield return new WaitForSeconds(1);
 

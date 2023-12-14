@@ -197,6 +197,12 @@ Animator:
     type: 3}
   m_PrefabInstance: {fileID: 45547450}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &45547452 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6530040986964341429, guid: 1bee7a0da26c06c45aad13d4a1cd4272,
+    type: 3}
+  m_PrefabInstance: {fileID: 45547450}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &203436022
 GameObject:
   m_ObjectHideFlags: 0
@@ -786,6 +792,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transitionAnimator: {fileID: 45547451}
+  transitionIconAnimator: {fileID: 45547452}
 --- !u!4 &1015003055
 Transform:
   m_ObjectHideFlags: 0

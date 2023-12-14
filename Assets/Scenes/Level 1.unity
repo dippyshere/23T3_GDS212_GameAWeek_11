@@ -416,6 +416,12 @@ Animator:
     type: 3}
   m_PrefabInstance: {fileID: 508141610}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &508141612 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6530040986964341429, guid: 1bee7a0da26c06c45aad13d4a1cd4272,
+    type: 3}
+  m_PrefabInstance: {fileID: 508141610}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &778277034
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -899,6 +905,11 @@ PrefabInstance:
       propertyPath: requiredCompound.name
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 457408817641924523, guid: f4fc65cb2e734324b9bb25162b746a8f,
+        type: 3}
+      propertyPath: transitionIconAnimator
+      value: 
+      objectReference: {fileID: 508141612}
     - target: {fileID: 7066446884495393718, guid: f4fc65cb2e734324b9bb25162b746a8f,
         type: 3}
       propertyPath: m_Name

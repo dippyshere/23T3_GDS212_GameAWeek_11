@@ -498,6 +498,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   optionsPanel: {fileID: 438735026}
   transitionAnimator: {fileID: 1631889859}
+  transitionIconAnimator: {fileID: 7335874056793736686}
 --- !u!4 &533075170
 Transform:
   m_ObjectHideFlags: 0
@@ -2229,6 +2230,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1bee7a0da26c06c45aad13d4a1cd4272, type: 3}
+--- !u!95 &7335874056793736686 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6530040986964341429, guid: 1bee7a0da26c06c45aad13d4a1cd4272,
+    type: 3}
+  m_PrefabInstance: {fileID: 7335874056793736685}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

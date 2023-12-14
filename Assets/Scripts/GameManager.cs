@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 {
     public GameObject optionsPanel;
     public Animator transitionAnimator;
+    public Animator transitionIconAnimator;
 
     public void Start()
     {
@@ -42,6 +43,7 @@ public class GameManager : MonoBehaviour
     IEnumerator LoadLevel(string levelName)
     {
         transitionAnimator.SetTrigger("Start");
+        transitionIconAnimator.SetTrigger("Start");
 
         yield return new WaitForSeconds(1);
 

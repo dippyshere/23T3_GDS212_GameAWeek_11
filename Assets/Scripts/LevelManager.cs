@@ -14,6 +14,7 @@ public class LevelManager : MonoBehaviour
     [Header("References")]
     [SerializeField, Tooltip("Reference to the Win Screen UI object (To enable upon completing the win condition)")] private GameObject winScreen;
     [SerializeField, Tooltip("Reference to the animator responsible for the level transitions (To trigger the animation to play when changing levels)")] private Animator transitionAnimator;
+    [SerializeField, Tooltip("Reference to the animator responsible for the level transitions (To trigger the animation to play when changing levels)")] private Animator transitionIconAnimator;
 
     // private AsyncOperation levelLoad;
 
@@ -111,6 +112,7 @@ public class LevelManager : MonoBehaviour
     IEnumerator LoadLevel(string levelName)
     {
         transitionAnimator.SetTrigger("Start");
+        transitionIconAnimator.SetTrigger("Start");
 
         yield return new WaitForSeconds(1);
 

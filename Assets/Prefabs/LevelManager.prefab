@@ -49,3 +49,4 @@ MonoBehaviour:
   loadBackgroundScene: 1
   winScreen: {fileID: 0}
   transitionAnimator: {fileID: 0}
+  transitionIconAnimator: {fileID: 0}
