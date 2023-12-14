@@ -16,4 +16,6 @@ public class Dialogue
     public bool[] dialogueAdvancedByPlacing;
     public bool[] dialogueAdvancedByRotating;
     public bool[] dialogueAdvancedByCompleting;
+    public bool[] dialogueUnloadCurentLevel;
+    public bool[] dialogueLoadNextLevel;
 }

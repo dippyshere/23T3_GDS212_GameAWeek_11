@@ -511,6 +511,34 @@ public class PlayerController : MonoBehaviour
         spawnedDropEffect.transform.localScale = new Vector3(2.75f, 2.75f, 2.75f);
     }
 
+    public void UnloadCurrentLevel()
+    {
+        StartCoroutine(UnloadCurrentScene());
+        if (currentAtomLevel != 1)
+        {
+            lightningArea1.SetActive(false);
+            GameObject spawnedDropEffect = Instantiate(successfulDropEffect, new Vector3(-221.02f, 2.44f, -31.13f), Quaternion.identity);
+            spawnedDropEffect.transform.localScale = new Vector3(2.75f, 2.75f, 2.75f);
+            lightningArea2.SetActive(false);
+            spawnedDropEffect = Instantiate(successfulDropEffect, new Vector3(-107.72f, 2.44f, 17.37f), Quaternion.identity);
+            spawnedDropEffect.transform.localScale = new Vector3(2.75f, 2.75f, 2.75f);
+        }
+    }
+
+    public void LoadLevelNext()
+    {
+        currentAtomLevel++;
+        if (currentAtomLevel >= atomLevelsList.Count)
+        {
+            StartCoroutine(levelManager.LoadLevel("Menu"));
+            return;
+        }
+        if (currentAtomLevel == 1)
+        {
+            LoadNextLevelByTrigger();
+        }
+    }
+
     public void LoadNextLevelByTrigger()
     {
         StartCoroutine(LoadNextScene());

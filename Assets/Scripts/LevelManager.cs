@@ -10,6 +10,7 @@ public class LevelManager : MonoBehaviour
     [Header("Level Configuration")]
     [SerializeField, Tooltip("Compound required to complete the level")] public Compound requiredCompound;
     [SerializeField, Tooltip("Enable to ensure the background scene is loaded upon starting the game")] private bool loadBackgroundScene = true;
+    [SerializeField] private Dialogue[] winDialogue;
     
     [Header("References")]
     [SerializeField, Tooltip("Reference to the Win Screen UI object (To enable upon completing the win condition)")] private GameObject winScreen;
@@ -58,7 +59,8 @@ public class LevelManager : MonoBehaviour
         if (requiredCompound.IsAssembled())
         {
             Debug.Log("You win!");
-            winScreen.SetActive(true);
+            //winScreen.SetActive(true);
+            FindObjectOfType<DialogueManager>().StartMultipleDialogue(winDialogue);
         }
     }
 
