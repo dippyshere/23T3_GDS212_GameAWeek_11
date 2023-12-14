@@ -149,10 +149,13 @@ public class DialogueManager : MonoBehaviour
         {
             continueButton.interactable = true;
         }
-        if (sentenceIndex < currentDialogue.dialogueUnloadCurentLevel.Length && currentDialogue.dialogueUnloadCurentLevel[sentenceIndex])
+        if (currentDialogue.dialogueUnloadCurentLevel != null)
         {
-            PlayerController playerController = FindObjectOfType<PlayerController>();
-            playerController.LoadNextLevel();
+            if (sentenceIndex < currentDialogue.dialogueUnloadCurentLevel.Length && currentDialogue.dialogueUnloadCurentLevel[sentenceIndex])
+            {
+                PlayerController playerController = FindObjectOfType<PlayerController>();
+                playerController.LoadNextLevel();
+            }
         }
         sentenceIndex++;
         animator.SetBool("IconBounce", true);
