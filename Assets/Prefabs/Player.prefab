@@ -235,18 +235,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 10
   sprintSpeed: 1.5
-  turnSpeed: 14
-  velocityDampeningSpeed: 15
+  turnSpeed: 10
+  velocityDampeningSpeed: 10
   pickupFallbackRange: 0.25
   animationWalkMultiplier: 0.12
   atomPushDuration: 0.4
   animator: {fileID: 8416082931999881658}
   levelManager: {fileID: 0}
-  PickupEffect: {fileID: 8771972552311404799, guid: bbf9e36a48d6c5648a13889afab076fd,
+  pickupEffect: {fileID: 8771972552311404799, guid: bbf9e36a48d6c5648a13889afab076fd,
     type: 3}
-  DropEffect: {fileID: 141433446842962269, guid: 9fe8f8b3288e45a44af36ff8aa04486e,
+  dropEffect: {fileID: 141433446842962269, guid: 9fe8f8b3288e45a44af36ff8aa04486e,
     type: 3}
-  SuccessfulDropEffect: {fileID: 9157105887711914197, guid: c4f829cb7dd4b864caf8832ec5b1ee55,
+  successfulDropEffect: {fileID: 9157105887711914197, guid: c4f829cb7dd4b864caf8832ec5b1ee55,
     type: 3}
   pickupTargetSmall: {fileID: 1891732060506266280}
   pickupTargetMedium: {fileID: 2495919173721112149}

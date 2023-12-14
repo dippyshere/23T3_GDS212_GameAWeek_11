@@ -15,9 +15,9 @@ public class PlayerController : MonoBehaviour
     [Header("References")]
     [SerializeField, Tooltip("Reference to the player's animator controller for setting run + run speed")] private Animator animator;
     [SerializeField, Tooltip("Reference to the level manager to trigger win condition checks unpon dropping an object")] private LevelManager levelManager;
-    [SerializeField] private GameObject PickupEffect;
-    [SerializeField] private GameObject DropEffect;
-    [SerializeField] private GameObject SuccessfulDropEffect;
+    [SerializeField, Tooltip("Effect to spawn when picking up an object")] private GameObject pickupEffect;
+    [SerializeField, Tooltip("Effect to spawn when placing an object")] public GameObject dropEffect;
+    [SerializeField, Tooltip("Effect to spawn when placing an object and having a successful connection")] public GameObject successfulDropEffect;
     [SerializeField, Tooltip("Reference to the pickup target transforms for each size of object")]
     public Transform pickupTargetSmall;
     public Transform pickupTargetMedium;
@@ -369,12 +369,27 @@ public class PlayerController : MonoBehaviour
     private void PickupObject(GameObject obj)
     {
         Debug.Log("Picking up " + obj.name);
-        obj.GetComponent<AtomManager>().PickupAtom();
+        AtomManager objAtomManager = obj.GetComponent<AtomManager>();
+        objAtomManager.PickupAtom();
         heldObject = obj;
         pendingObjects.Clear();
 
-        GameObject spawnedPickupEffect = Instantiate(PickupEffect, pickupTargetOverhead.transform.position, Quaternion.identity);
-        spawnedPickupEffect.transform.localScale = new Vector3 (4, 4, 4);
+        GameObject spawnedPickupEffect = Instantiate(pickupEffect, pickupTargetOverhead.transform);
+        switch (objAtomManager.atomSize)
+        {
+            case AtomManager.AtomSize.Small:
+                spawnedPickupEffect.transform.localScale = new Vector3(4, 4, 4);
+                break;
+            case AtomManager.AtomSize.Medium:
+                spawnedPickupEffect.transform.localScale = new Vector3(4.5f, 4.5f, 4.5f);
+                break;
+            case AtomManager.AtomSize.Large:
+                spawnedPickupEffect.transform.localScale = new Vector3(5.3f, 5.3f, 5.3f);
+                break;
+            case AtomManager.AtomSize.VeryLarge:
+                spawnedPickupEffect.transform.localScale = new Vector3(6.4f, 6.4f, 6.4f);
+                break;
+        }
     }
 
     /// <summary>
@@ -384,7 +399,8 @@ public class PlayerController : MonoBehaviour
     private void DropObject(GameObject obj)
     {
         Debug.Log("Dropping " + obj.name);
-        obj.GetComponent<AtomManager>().DropAtom();
+        AtomManager objAtomManager = obj.GetComponent<AtomManager>();
+        objAtomManager.DropAtom();
         heldObject = null;
         pendingObjects.Clear();
         if (levelManager != null)
@@ -399,8 +415,6 @@ public class PlayerController : MonoBehaviour
                 pendingObjects.Add(collider.gameObject);
             }
         }
-        GameObject spawnedDropEffect = Instantiate(DropEffect, pickupTargetLarge.transform.position, Quaternion.identity);
-        spawnedDropEffect.transform.localScale = new Vector3(2.5f, 2.5f, 2.5f);
     }
 
     /// <summary>

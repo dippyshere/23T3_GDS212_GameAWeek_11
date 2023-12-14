@@ -7,7 +7,7 @@ public class AtomManager : MonoBehaviour
     [Header("Configuration")]
     [SerializeField, Tooltip("The Y Position the atom is constrained to")] private float yPosition = 5f;
     [SerializeField, Tooltip("The size of the grid the atom will snap to")] private float gridSize = 3f;
-    [SerializeField, Tooltip("The hitbox size of the atom for registering player events")] private AtomSize atomSize = AtomSize.Small;
+    [SerializeField, Tooltip("The hitbox size of the atom for registering player events")] public AtomSize atomSize = AtomSize.Small;
     [SerializeField, Tooltip("The thickness of the outline when the player is going to pickup this atom")] private float outlineHighlightThickness = 6f;
     [SerializeField, Tooltip("The thickness of the outline when the player is holding this atom")] private float outlinePickedupThickness = 4f;
     [SerializeField, Tooltip("The prefab to use to preview placement location")] private GameObject previewPrefab;
@@ -152,6 +152,58 @@ public class AtomManager : MonoBehaviour
         }
         SnapToGrid();
         ConnectToConnector();
+        bool successful = false;
+        foreach (Transform connectionPoint in connectionPoints)
+        {
+            if (!connectionPoint.gameObject.activeSelf)
+            {
+                successful = true;
+            }
+        }
+        if (successful)
+        {
+            switch (atomSize)
+            {
+                case AtomManager.AtomSize.Small:
+                    GameObject spawnedDropEffect = Instantiate(playerController.successfulDropEffect, transform);
+                    spawnedDropEffect.transform.localScale = new Vector3(2.75f, 2.75f, 2.75f);
+                    break;
+                case AtomManager.AtomSize.Medium:
+                    spawnedDropEffect = Instantiate(playerController.successfulDropEffect, transform);
+                    spawnedDropEffect.transform.localScale = new Vector3(3.15f, 3.15f, 3.15f);
+                    break;
+                case AtomManager.AtomSize.Large:
+                    spawnedDropEffect = Instantiate(playerController.successfulDropEffect, transform);
+                    spawnedDropEffect.transform.localScale = new Vector3(3.75f, 3.75f, 3.75f);
+                    break;
+                case AtomManager.AtomSize.VeryLarge:
+                    spawnedDropEffect = Instantiate(playerController.successfulDropEffect, transform);
+                    spawnedDropEffect.transform.localScale = new Vector3(4.25f, 4.25f, 4.25f);
+                    break;
+            }
+        }
+        else
+        {
+            switch (atomSize)
+            {
+                case AtomManager.AtomSize.Small:
+                    GameObject spawnedDropEffect = Instantiate(playerController.dropEffect, transform);
+                    spawnedDropEffect.transform.localScale = new Vector3(2.75f, 2.75f, 2.75f);
+                    break;
+                case AtomManager.AtomSize.Medium:
+                    spawnedDropEffect = Instantiate(playerController.dropEffect, transform);
+                    spawnedDropEffect.transform.localScale = new Vector3(3.15f, 3.15f, 3.15f);
+                    break;
+                case AtomManager.AtomSize.Large:
+                    spawnedDropEffect = Instantiate(playerController.dropEffect, transform);
+                    spawnedDropEffect.transform.localScale = new Vector3(3.75f, 3.75f, 3.75f);
+                    break;
+                case AtomManager.AtomSize.VeryLarge:
+                    spawnedDropEffect = Instantiate(playerController.dropEffect, transform);
+                    spawnedDropEffect.transform.localScale = new Vector3(4.25f, 4.25f, 4.25f);
+                    break;
+            }
+        }
     }
 
     public void PushAtom(Vector3 direction)
@@ -172,6 +224,37 @@ public class AtomManager : MonoBehaviour
             yield return null;
         }
         SnapToGrid();
+        ConnectToConnector();
+        bool successful = false;
+        foreach (Transform connectionPoint in connectionPoints)
+        {
+            if (!connectionPoint.gameObject.activeSelf)
+            {
+                successful = true;
+            }
+        }
+        if (successful)
+        {
+            switch (atomSize)
+            {
+                case AtomManager.AtomSize.Small:
+                    GameObject spawnedDropEffect = Instantiate(playerController.successfulDropEffect, transform);
+                    spawnedDropEffect.transform.localScale = new Vector3(2.75f, 2.75f, 2.75f);
+                    break;
+                case AtomManager.AtomSize.Medium:
+                    spawnedDropEffect = Instantiate(playerController.successfulDropEffect, transform);
+                    spawnedDropEffect.transform.localScale = new Vector3(3.15f, 3.15f, 3.15f);
+                    break;
+                case AtomManager.AtomSize.Large:
+                    spawnedDropEffect = Instantiate(playerController.successfulDropEffect, transform);
+                    spawnedDropEffect.transform.localScale = new Vector3(3.75f, 3.75f, 3.75f);
+                    break;
+                case AtomManager.AtomSize.VeryLarge:
+                    spawnedDropEffect = Instantiate(playerController.successfulDropEffect, transform);
+                    spawnedDropEffect.transform.localScale = new Vector3(4.25f, 4.25f, 4.25f);
+                    break;
+            }
+        }
     }
 
     private void Update()
@@ -278,6 +361,11 @@ public class AtomManager : MonoBehaviour
                         {
                             if (connectionPoints.IndexOf(connectionPoint) < 0)
                             {
+                                continue;
+                            }
+                            if (Mathf.Abs(connectionPoint.rotation.eulerAngles.y - closestConnectionPoint.rotation.eulerAngles.y) > 90)
+                            {
+                                Debug.Log("Bad angle (" + (connectionPoint.rotation.eulerAngles.y - closestConnectionPoint.rotation.eulerAngles.y) + ")");
                                 continue;
                             }
                             // disable both connection points
