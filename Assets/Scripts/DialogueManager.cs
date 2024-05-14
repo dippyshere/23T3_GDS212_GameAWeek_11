@@ -11,6 +11,7 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI dialogueText;
     public Image iconLeft;
     public Image iconRight;
+    public Image iconPortrait;
     public Button continueButton;
     public Volume focusPostProcess;
 
@@ -21,6 +22,8 @@ public class DialogueManager : MonoBehaviour
     private int currentDialogueIndex = 0;
     private Dialogue currentDialogue;
     private Dialogue[] currentDialogues;
+
+    private bool nextLoadQueued = false;
 
     // Start is called before the first frame update
     void Start()
@@ -54,6 +57,7 @@ public class DialogueManager : MonoBehaviour
             iconRight.enabled = true;
             iconLeft.enabled = false;
         }
+        iconPortrait.sprite = dialogue.icon;
         //if (dialogue.focusEnabled.Length > 0 && dialogue.focusEnabled[0])
         //{
         //    StartCoroutine(EnableFocus());
@@ -84,7 +88,7 @@ public class DialogueManager : MonoBehaviour
 
     public void AdvancePlacement()
     {
-        if (currentDialogue.dialogueAdvancedByPlacing.Length > sentenceIndex - 1 && currentDialogue.dialogueAdvancedByPlacing[sentenceIndex - 1])
+        if (currentDialogue.dialogueAdvancedByPlacing.Length > sentenceIndex - 1 && currentDialogue.dialogueAdvancedByPlacing[sentenceIndex - 1] && animator.GetBool("DialogueActive"))
         {
             Debug.Log("Advanced by placing for sentence index " + sentenceIndex);
             DisplayNextSentence();
@@ -93,7 +97,7 @@ public class DialogueManager : MonoBehaviour
 
     public void AdvancePickup()
     {
-        if (currentDialogue.dialogueAdvancedByPickingUp.Length > sentenceIndex - 1 && currentDialogue.dialogueAdvancedByPickingUp[sentenceIndex - 1])
+        if (currentDialogue.dialogueAdvancedByPickingUp.Length > sentenceIndex - 1 && currentDialogue.dialogueAdvancedByPickingUp[sentenceIndex - 1] && animator.GetBool("DialogueActive"))
         {
             Debug.Log("Advanced by picking up for sentence index " + sentenceIndex);
             DisplayNextSentence();
@@ -102,7 +106,7 @@ public class DialogueManager : MonoBehaviour
 
     public void AdvanceRotate()
     {
-        if (currentDialogue.dialogueAdvancedByRotating.Length > sentenceIndex - 1 && currentDialogue.dialogueAdvancedByRotating[sentenceIndex - 1])
+        if (currentDialogue.dialogueAdvancedByRotating.Length > sentenceIndex - 1 && currentDialogue.dialogueAdvancedByRotating[sentenceIndex - 1] && animator.GetBool("DialogueActive"))
         {
             Debug.Log("Advanced by rotating for sentence index " + sentenceIndex);
             DisplayNextSentence();
@@ -111,7 +115,7 @@ public class DialogueManager : MonoBehaviour
 
     public void AdvanceCompletion()
     {
-        if (currentDialogue.dialogueAdvancedByCompleting.Length > sentenceIndex - 1 && currentDialogue.dialogueAdvancedByCompleting[sentenceIndex - 1])
+        if (currentDialogue.dialogueAdvancedByCompleting.Length > sentenceIndex - 1 && currentDialogue.dialogueAdvancedByCompleting[sentenceIndex - 1] && animator.GetBool("DialogueActive"))
         {
             Debug.Log("Advanced by completing for sentence index " + sentenceIndex);
             DisplayNextSentence();
@@ -127,19 +131,15 @@ public class DialogueManager : MonoBehaviour
         }
         if (sentenceIndex > 0)
         {
-            AudioManager audioManager = FindObjectOfType<AudioManager>();
-            if (audioManager != null)
-            {
-                audioManager.PlaySoundEffect(0);
-            }
+            AudioManager.Instance.PlaySoundEffect(0);
         }
         if (sentenceIndex < currentDialogue.focusEnabled.Length && currentDialogue.focusEnabled[sentenceIndex])
         {
-            StartCoroutine(EnableFocus());
+            BeginFocus();
         }
         else
         {
-            StartCoroutine(DisableFocus());
+            EndFocus();
         }
         if (sentenceIndex < currentDialogue.disableContinueButton.Length && currentDialogue.disableContinueButton[sentenceIndex])
         {
@@ -153,19 +153,36 @@ public class DialogueManager : MonoBehaviour
         {
             if (sentenceIndex < currentDialogue.dialogueUnloadCurentLevel.Length && currentDialogue.dialogueUnloadCurentLevel[sentenceIndex])
             {
-                PlayerController playerController = FindObjectOfType<PlayerController>();
-                playerController.LoadNextLevel();
+                PlayerController playerController = FindAnyObjectByType<PlayerController>();
+                playerController.UnloadCurrentLevel();
+            }
+        }
+        if (currentDialogue.dialogueLoadNextLevel != null)
+        {
+            if (sentenceIndex < currentDialogue.dialogueLoadNextLevel.Length && currentDialogue.dialogueLoadNextLevel[sentenceIndex] && !(currentDialogue.dialogueUnloadCurentLevel != null && sentenceIndex < currentDialogue.dialogueUnloadCurentLevel.Length && currentDialogue.dialogueUnloadCurentLevel[sentenceIndex]))
+            {
+                if (sentences.Count == 1)
+                {
+                    nextLoadQueued = true;
+                }
+                else
+                {
+                    PlayerController playerController = FindAnyObjectByType<PlayerController>();
+                    playerController.LoadNextLevel();
+                    nextLoadQueued = false;
+                }
             }
         }
         sentenceIndex++;
         animator.SetBool("IconBounce", true);
         string sentence = sentences.Dequeue();
-        StopAllCoroutines();
+        StopCoroutine(nameof(TypeSentence));
         StartCoroutine(TypeSentence(sentence));
     }
 
     IEnumerator TypeSentence(string sentence)
     {
+        int startingSentenceIndex = sentenceIndex;
         dialogueText.text = "";
         char[] chars = sentence.ToCharArray();
         string[] sentenceArray = new string[chars.Length];
@@ -184,6 +201,10 @@ public class DialogueManager : MonoBehaviour
         sentenceArray = new List<string>(sentenceArray).FindAll(s => !string.IsNullOrEmpty(s)).ToArray();
         foreach (string letter in sentenceArray)
         {
+            if (sentenceIndex != startingSentenceIndex)
+            {
+                break;
+            }
             dialogueText.text += letter;
             yield return new WaitForSecondsRealtime(0.016f);
         }
@@ -193,18 +214,20 @@ public class DialogueManager : MonoBehaviour
     {
         if (currentDialogue.dialogueUnloadCurentLevel != null && sentenceIndex < currentDialogue.dialogueUnloadCurentLevel.Length && currentDialogue.dialogueUnloadCurentLevel[sentenceIndex])
         {
-            PlayerController playerController = FindObjectOfType<PlayerController>();
-            playerController.LoadNextLevel();
+            PlayerController playerController = FindAnyObjectByType<PlayerController>();
+            playerController.UnloadCurrentLevel();
+        }
+        if (nextLoadQueued)
+        {
+            PlayerController playerController = FindAnyObjectByType<PlayerController>();
+            playerController.LoadNextLevel(true);
+            nextLoadQueued = false;
         }
         if (currentDialogues!= null && currentDialogueIndex < currentDialogues.Length - 1)
         {
             currentDialogueIndex++;
             StartDialogue(currentDialogues[currentDialogueIndex]);
-            AudioManager audioManager = FindObjectOfType<AudioManager>();
-            if (audioManager != null)
-            {
-                audioManager.PlaySoundEffect(0);
-            }
+            AudioManager.Instance.PlaySoundEffect(0);
         }
         else
         {
@@ -212,46 +235,48 @@ public class DialogueManager : MonoBehaviour
             {
                 currentDialogues = null;
             }
-            AudioManager audioManager = FindObjectOfType<AudioManager>();
-            if (audioManager != null)
-            {
-                audioManager.PlaySoundEffect(1);
-            }
+            AudioManager.Instance.PlaySoundEffect(1);
             animator.SetBool("DialogueActive", false);
             continueButton.interactable = false;
             StartCoroutine(DisableFocus());
         }
     }
 
+    private void BeginFocus()
+    {
+        StartCoroutine(EnableFocus());
+    }
+
+    private void EndFocus()
+    {
+        StartCoroutine(DisableFocus());
+    }
+
     private IEnumerator EnableFocus()
     {
         StopCoroutine(DisableFocus());
-        focusPostProcess.weight = 1;
-        Time.timeScale = 0.25f;
+        while (focusPostProcess.weight < 1f)
+        {
+            focusPostProcess.weight += Time.unscaledDeltaTime;
+            Time.timeScale = Mathf.Lerp(Time.timeScale, 0.25f, Time.unscaledDeltaTime);
+            yield return null;
+        }
+        focusPostProcess.weight = 1f;
+        Time.timeScale = 0.075f;
         yield return null;
-        //float t = 0;
-        //while (t < 1)
-        //{
-        //    t += Time.unscaledDeltaTime * 2;
-        //    focusPostProcess.weight = Mathf.Lerp(0, 1, t);
-        //    Time.timeScale = Mathf.Lerp(1, 0.5f, t);
-        //    yield return null;
-        //}
     }
 
     private IEnumerator DisableFocus()
     {
         StopCoroutine(EnableFocus());
-        focusPostProcess.weight = 0;
-        Time.timeScale = 1f;
+        while (focusPostProcess.weight >= 0f)
+        {
+            focusPostProcess.weight -= Time.unscaledDeltaTime;
+            Time.timeScale = Mathf.Lerp(Time.timeScale, 1, Time.unscaledDeltaTime);
+            yield return null;
+        }
+        focusPostProcess.weight = 0f;
+        Time.timeScale = 1;
         yield return null;
-        //float t = 0;
-        //while (t < 1)
-        //{
-        //    t += Time.unscaledDeltaTime * 2;
-        //    focusPostProcess.weight = Mathf.Lerp(1, 0, t);
-        //    Time.timeScale = Mathf.Lerp(0.5f, 1, t);
-        //    yield return null;
-        //}
     }
 }

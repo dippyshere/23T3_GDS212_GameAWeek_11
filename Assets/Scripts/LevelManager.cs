@@ -32,14 +32,22 @@ public class LevelManager : MonoBehaviour
     }
 
     // workaround for editor
-    private void Start()
+    private IEnumerator Start()
     {
         if (SceneManager.GetSceneByName("Background Scene").isLoaded == false && loadBackgroundScene && Application.isEditor)
         {
             // load the background scene on top of the current scene
             SceneManager.LoadSceneAsync("Background Scene", LoadSceneMode.Additive);
         }
-        playerController = FindObjectOfType<PlayerController>();
+        playerController = FindAnyObjectByType<PlayerController>();
+        yield return null;
+        yield return null;
+        yield return new WaitForEndOfFrame();
+        if (transitionAnimator != null && transitionIconAnimator != null)
+        {
+            transitionAnimator.SetTrigger("End");
+            transitionIconAnimator.SetTrigger("End");
+        }
     }
 
     //private void FixedUpdate()
@@ -66,7 +74,11 @@ public class LevelManager : MonoBehaviour
                 StartCoroutine(LoadLevel("Water Scene"));
                 return;
             }
-            FindObjectOfType<DialogueManager>().StartMultipleDialogue(winDialogue);
+            FindAnyObjectByType<DialogueManager>().AdvanceCompletion();
+            if (winDialogue.Length > 0 && playerController.currentAtomLevel >= 1)
+            {
+                FindAnyObjectByType<DialogueManager>().StartMultipleDialogue(winDialogue);
+            }
         }
     }
 
@@ -93,7 +105,7 @@ public class LevelManager : MonoBehaviour
             StartCoroutine(LoadLevel("Water Scene"));
             return;
         }
-        playerController = FindObjectOfType<PlayerController>();
+        playerController = FindAnyObjectByType<PlayerController>();
         playerController.LoadNextLevel();
         //switch (requiredCompound.name)
         //{
@@ -129,8 +141,11 @@ public class LevelManager : MonoBehaviour
     /// <returns></returns>
     public IEnumerator LoadLevel(string levelName)
     {
-        transitionAnimator.SetTrigger("Start");
-        transitionIconAnimator.SetTrigger("Start");
+        if (transitionAnimator != null && transitionIconAnimator != null)
+        {
+            transitionAnimator.SetTrigger("Start");
+            transitionIconAnimator.SetTrigger("Start");
+        }
 
         yield return new WaitForSeconds(1);
 

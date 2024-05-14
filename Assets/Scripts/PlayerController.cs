@@ -38,17 +38,32 @@ public class PlayerController : MonoBehaviour
     private DialogueManager dialogueManager;
 
     private float pushTimer = 0f;
-    private int currentAtomLevel = 0;
+    public int currentAtomLevel = 0;
+    private bool pickupDisabled = false;
 
-    private void Start()
+    private IEnumerator Start()
     {
-        dialogueManager = FindObjectOfType<DialogueManager>();
-        levelManager = FindObjectOfType<LevelManager>();
+        dialogueManager = FindAnyObjectByType<DialogueManager>();
+        levelManager = FindAnyObjectByType<LevelManager>();
+        yield return null;
+        yield return null;
+        yield return new WaitForEndOfFrame();
+        if (transitionAnimator != null && transitionIconAnimator != null)
+        {
+            transitionAnimator.SetTrigger("End");
+            transitionIconAnimator.SetTrigger("End");
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (pickupDisabled)
+        {
+            pendingObjects.Clear();
+            pendingFallbackObjects.Clear();
+            heldObject = null;
+        }
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         float verticalInput = Input.GetAxisRaw("Vertical");
 
@@ -67,21 +82,21 @@ public class PlayerController : MonoBehaviour
         }
 
         // set the run speed based on the player's velocity
-        animator.SetFloat("WalkMultiplier", rigidBody.velocity.magnitude * animationWalkMultiplier);
+        animator.SetFloat("WalkMultiplier", rigidBody.linearVelocity.magnitude * animationWalkMultiplier);
 
         // move the player
         Vector3 movement = new Vector3(horizontalInput, 0f, verticalInput);
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            rigidBody.velocity = Vector3.Lerp(rigidBody.velocity, new Vector3(movement.x, 0, movement.z).normalized * moveSpeed * sprintSpeed, Time.deltaTime * velocityDampeningSpeed);
+            rigidBody.linearVelocity = Vector3.Lerp(rigidBody.linearVelocity, new Vector3(movement.x, 0, movement.z).normalized * moveSpeed * sprintSpeed, Time.deltaTime * velocityDampeningSpeed);
         }
         else
         {
-            rigidBody.velocity = Vector3.Lerp(rigidBody.velocity, new Vector3(movement.x, 0, movement.z).normalized * moveSpeed, Time.deltaTime * velocityDampeningSpeed);
+            rigidBody.linearVelocity = Vector3.Lerp(rigidBody.linearVelocity, new Vector3(movement.x, 0, movement.z).normalized * moveSpeed, Time.deltaTime * velocityDampeningSpeed);
         }
 
         // pickup/drop objects
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && !pickupDisabled)
         {
             if (pendingObjects.Count > 0)
             {
@@ -91,6 +106,11 @@ public class PlayerController : MonoBehaviour
                 Collider[] colliders = Physics.OverlapSphere(pickupTargetSmall.position, pickupFallbackRange);
                 foreach (Collider collider in colliders)
                 {
+                    if (pickupDisabled)
+                    {
+                        pendingObjects.Clear();
+                        break;
+                    }
                     if ((collider.CompareTag("Atom") || collider.CompareTag("Connector")) && !pendingObjects.Contains(collider.gameObject))
                     {
                         pendingObjects.Add(collider.gameObject);
@@ -98,6 +118,10 @@ public class PlayerController : MonoBehaviour
                 }
                 foreach (GameObject obj in pendingObjects)
                 {
+                    if (pickupDisabled)
+                    {
+                        break;
+                    }
                     float distance = Vector3.Distance(obj.transform.position, pickupTargetSmall.position);
                     if (distance < closestDistance)
                     {
@@ -142,7 +166,14 @@ public class PlayerController : MonoBehaviour
             else if (heldObject != null)
             {
                 // drop the object
-                DropObject(heldObject);
+                if (pickupDisabled)
+                {
+                    pendingObjects.Clear();
+                }
+                else
+                {
+                    DropObject(heldObject);
+                }
             }
             else
             {
@@ -176,24 +207,29 @@ public class PlayerController : MonoBehaviour
         }
 
         // rotate the held object
-        if (Input.GetKeyDown(KeyCode.R) && heldObject != null)
+        if (Input.GetKeyDown(KeyCode.R) && heldObject != null && !pickupDisabled)
         {
             RotateObject(heldObject);
         }
 
         // check for atoms to highlight
-        if (heldObject == null)
+        if (heldObject == null && !pickupDisabled)
         {
             if (pendingObjects.Count > 0)
             {
+                List<GameObject> objectsToRemove = new List<GameObject>();
                 foreach (GameObject obj in pendingObjects)
                 {
                     if (obj == null)
                     {
-                        pendingObjects.Remove(obj);
+                        objectsToRemove.Add(obj);
                         continue;
                     }
                     obj.GetComponent<AtomManager>().UnhighlightAtom();
+                }
+                foreach (GameObject obj in objectsToRemove)
+                {
+                    pendingObjects.Remove(obj);
                 }
                 // find the object closest to the pickup small transform
                 GameObject closestObject = null;
@@ -312,7 +348,7 @@ public class PlayerController : MonoBehaviour
                 //}
             }
 
-            if (movement != Vector3.zero && rigidBody.velocity.magnitude < 5f)
+            if (movement != Vector3.zero && rigidBody.linearVelocity.magnitude < 5f)
             {
                 pushTimer += Time.deltaTime;
                 if (pushTimer >= atomPushDuration)
@@ -371,6 +407,10 @@ public class PlayerController : MonoBehaviour
                                 pendingObjects.Clear();
                             }
                         }
+                        if (levelManager != null)
+                        {
+                            levelManager.CheckWinCondition();
+                        }
                     }
                 }
             }
@@ -418,12 +458,20 @@ public class PlayerController : MonoBehaviour
     /// <param name="obj">The atom/conncetor to drop</param>
     private void DropObject(GameObject obj)
     {
-        levelManager = FindObjectOfType<LevelManager>();
+        if (obj == null || pickupDisabled)
+        {
+            return;
+        }
+        levelManager = FindAnyObjectByType<LevelManager>();
         Debug.Log("Dropping " + obj.name);
-        AtomManager objAtomManager = obj.GetComponent<AtomManager>();
+        if (!obj.TryGetComponent<AtomManager>(out AtomManager objAtomManager))
+        {
+            return;
+        }
         objAtomManager.DropAtom();
         heldObject = null;
         pendingObjects.Clear();
+        pendingFallbackObjects.Clear();
         if (levelManager != null)
         {
             levelManager.CheckWinCondition();
@@ -431,6 +479,12 @@ public class PlayerController : MonoBehaviour
         Collider[] colliders = Physics.OverlapSphere(transform.position, 0.1f);
         foreach (Collider collider in colliders)
         {
+            if (pickupDisabled)
+            {
+                pendingObjects.Clear();
+                break;
+            }
+            if (!collider.enabled) continue;
             if (collider.CompareTag("Atom") || collider.CompareTag("Connector"))
             {
                 pendingObjects.Add(collider.gameObject);
@@ -490,39 +544,48 @@ public class PlayerController : MonoBehaviour
         heldObject = null;
     }
 
-    public void LoadNextLevel()
+    public void LoadNextLevel(bool ending = false)
     {
         currentAtomLevel++;
         if (currentAtomLevel >= atomLevelsList.Count)
         {
-            StartCoroutine(levelManager.LoadLevel("Menu"));
-            return;
+            if (ending)
+            {
+                if (transitionAnimator != null && transitionIconAnimator != null)
+                {
+                    transitionAnimator.SetTrigger("Start");
+                    transitionIconAnimator.SetTrigger("Start");
+                }
+                StartCoroutine(levelManager.LoadLevel("Menu"));
+                return;
+            }
+            else
+            {
+                return;
+            }
         }
         StartCoroutine(UnloadCurrentScene());
         if (currentAtomLevel == 1)
         {
             LoadNextLevelByTrigger();
         }
-        lightningArea1.SetActive(false);
-        GameObject spawnedDropEffect = Instantiate(successfulDropEffect, new Vector3(-221.02f, 2.44f, -31.13f), Quaternion.identity);
-        spawnedDropEffect.transform.localScale = new Vector3(2.75f, 2.75f, 2.75f);
-        lightningArea2.SetActive(false);
-        spawnedDropEffect = Instantiate(successfulDropEffect, new Vector3(-107.72f, 2.44f, 17.37f), Quaternion.identity);
-        spawnedDropEffect.transform.localScale = new Vector3(2.75f, 2.75f, 2.75f);
-    }
-
-    public void UnloadCurrentLevel()
-    {
-        StartCoroutine(UnloadCurrentScene());
-        if (currentAtomLevel != 1)
+        if (currentAtomLevel > 1)
         {
             lightningArea1.SetActive(false);
             GameObject spawnedDropEffect = Instantiate(successfulDropEffect, new Vector3(-221.02f, 2.44f, -31.13f), Quaternion.identity);
             spawnedDropEffect.transform.localScale = new Vector3(2.75f, 2.75f, 2.75f);
+        }
+        if (currentAtomLevel >= 3)
+        {
             lightningArea2.SetActive(false);
-            spawnedDropEffect = Instantiate(successfulDropEffect, new Vector3(-107.72f, 2.44f, 17.37f), Quaternion.identity);
+            GameObject spawnedDropEffect = Instantiate(successfulDropEffect, new Vector3(-107.72f, 2.44f, 17.37f), Quaternion.identity);
             spawnedDropEffect.transform.localScale = new Vector3(2.75f, 2.75f, 2.75f);
         }
+    }
+
+    public void UnloadCurrentLevel()
+    {
+        StartCoroutine(UnloadCurrentScene(true));
     }
 
     public void LoadLevelNext()
@@ -546,29 +609,69 @@ public class PlayerController : MonoBehaviour
         lightningArea2.SetActive(true);
     }
 
-    private IEnumerator UnloadCurrentScene()
+    private IEnumerator UnloadCurrentScene(bool unloadCurrent = false)
     {
-        levelManager.transitionAnimator.SetTrigger("Start");
-        levelManager.transitionIconAnimator.SetTrigger("Start");
-
-        yield return new WaitForSeconds(1);
-        transitionAnimator.SetTrigger("End");
-        transitionIconAnimator.SetTrigger("End");
-        AsyncOperation asyncOperation = SceneManager.UnloadSceneAsync(atomLevelsList[currentAtomLevel - 1].ToString() + " Scene");
-        while (!asyncOperation.isDone)
+        pickupDisabled = true;
+        yield return null;
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName("Background Scene"));
+        AtomManager[] atomManagers = FindObjectsByType<AtomManager>(FindObjectsSortMode.None);
+        foreach (AtomManager atomManager in atomManagers)
         {
-            yield return null;
+            GameObject spawnedDropEffect = Instantiate(dropEffect, atomManager.transform.position, Quaternion.identity);
+            switch (atomManager.atomSize)
+            {
+                case AtomManager.AtomSize.Small:
+                    spawnedDropEffect.transform.localScale = new Vector3(4, 4, 4);
+                    break;
+                case AtomManager.AtomSize.Medium:
+                    spawnedDropEffect.transform.localScale = new Vector3(4.5f, 4.5f, 4.5f);
+                    break;
+                case AtomManager.AtomSize.Large:
+                    spawnedDropEffect.transform.localScale = new Vector3(5.3f, 5.3f, 5.3f);
+                    break;
+                case AtomManager.AtomSize.VeryLarge:
+                    spawnedDropEffect.transform.localScale = new Vector3(6.4f, 6.4f, 6.4f);
+                    break;
+            }
         }
+        if (unloadCurrent)
+        {
+            if (!SceneManager.GetSceneByName(atomLevelsList[currentAtomLevel].ToString() + " Scene").isLoaded)
+            {
+                yield break;
+            }
+            AsyncOperation asyncOperation = SceneManager.UnloadSceneAsync(atomLevelsList[currentAtomLevel].ToString() + " Scene");
+            while (!asyncOperation.isDone)
+            {
+                yield return null;
+            }
+        }
+        else
+        {
+            if (!SceneManager.GetSceneByName(atomLevelsList[currentAtomLevel - 1].ToString() + " Scene").isLoaded)
+            {
+                yield break;
+            }
+            AsyncOperation asyncOperation = SceneManager.UnloadSceneAsync(atomLevelsList[currentAtomLevel - 1].ToString() + " Scene");
+            while (!asyncOperation.isDone)
+            {
+                yield return null;
+            }
+        }
+        pickupDisabled = false;
     }
 
     private IEnumerator LoadNextScene()
     {
+        pickupDisabled = true;
+        yield return null;
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(atomLevelsList[currentAtomLevel].ToString() + " Scene", LoadSceneMode.Additive);
         while (!asyncOperation.isDone)
         {
             yield return null;
         }
-        levelManager = FindObjectOfType<LevelManager>();
+        levelManager = FindAnyObjectByType<LevelManager>();
         yield return null;
+        pickupDisabled = false;
     }
 }

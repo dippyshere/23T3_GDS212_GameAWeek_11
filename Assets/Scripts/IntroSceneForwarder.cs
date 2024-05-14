@@ -9,8 +9,13 @@ public class IntroSceneForwarder : MonoBehaviour
     [SerializeField] private Animator transitionIconAnimator;
     private bool started = true;
 
-    private void Start()
+    private IEnumerator Start()
     {
+        yield return null;
+        yield return null;
+        yield return new WaitForEndOfFrame();
+        transitionAnimator.SetTrigger("End");
+        transitionIconAnimator.SetTrigger("End");
         StartCoroutine(WaitForTransition());
     }
 

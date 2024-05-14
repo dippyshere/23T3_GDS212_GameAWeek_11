@@ -6,8 +6,6 @@ public class FloorColour : MonoBehaviour
 {
     public Material normalMaterial; // The default material
     public Material highlightMaterial; // The material to change to when the player steps on the tile
-
-    private bool playerOnTile = false;
     private Renderer tileRenderer;
 
     void Start()
@@ -21,7 +19,6 @@ public class FloorColour : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            playerOnTile = true;
             tileRenderer.material = highlightMaterial;
         }
     }
@@ -30,7 +27,6 @@ public class FloorColour : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            playerOnTile = false;
             tileRenderer.material = normalMaterial;
         }
     }

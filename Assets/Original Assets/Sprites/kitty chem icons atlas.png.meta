@@ -1,0 +1,458 @@
+fileFormatVersion: 2
+guid: b7ea566914db4c34a88bf9320f0b99c4
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 1024
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 3
+    compressionQuality: 100
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Win64
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: DrMittens
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 966
+        height: 1024
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: -277, y: 266}
+        - {x: -415, y: 219}
+        - {x: -436, y: -163}
+        - {x: -258, y: -183}
+        - {x: -181, y: -512}
+        - {x: 8.137756, y: -512}
+        - {x: 47, y: -413}
+        - {x: 85.6084, y: -512}
+        - {x: 297, y: -512}
+        - {x: 275, y: -440}
+        - {x: 443, y: -316}
+        - {x: 435, y: -151}
+        - {x: 276, y: -166}
+        - {x: 477, y: -84}
+        - {x: 477, y: 350}
+        - {x: 360, y: 357}
+        - {x: 338, y: 512}
+        - {x: 206.02386, y: 512}
+        - {x: 45, y: 450}
+        - {x: -142, y: 512}
+        - {x: -240, y: 512}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c01ca1bc530edbe42bf3633b5735fed2
+      internalID: -718142578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hydrogen
+      rect:
+        serializedVersion: 2
+        x: 682
+        y: 1635
+        width: 405
+        height: 403
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 202.5, y: -118.5}
+        - {x: 202.5, y: 48.5}
+        - {x: 159.5, y: 69.5}
+        - {x: 158.5, y: 170.5}
+        - {x: 2.5, y: 201.5}
+        - {x: -64.5, y: 201.5}
+        - {x: -202.5, y: 109.5}
+        - {x: -202.5, y: -53.5}
+        - {x: -121.5, y: -201.5}
+        - {x: 37.5, y: -201.5}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2490e0cd1ca6ead468ae2456f9205900
+      internalID: -811783910
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oxygen
+      rect:
+        serializedVersion: 2
+        x: 746
+        y: 1134
+        width: 422
+        height: 417
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 211, y: -104.5}
+        - {x: 211, y: -15.5}
+        - {x: 159, y: 151}
+        - {x: 25, y: 208.5}
+        - {x: -23, y: 208.5}
+        - {x: -211, y: 102.5}
+        - {x: -211, y: 7.5}
+        - {x: -164, y: -139.5}
+        - {x: -27, y: -208.5}
+        - {x: 20, y: -208.5}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: efd2f6f67d15141479d6b42dffb18ace
+      internalID: -819516259
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Carbon
+      rect:
+        serializedVersion: 2
+        x: 1158
+        y: 1632
+        width: 410
+        height: 404
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 56, y: -202}
+        - {x: 205, y: -97}
+        - {x: 205, y: 30}
+        - {x: 149, y: 147}
+        - {x: -2, y: 202}
+        - {x: -42, y: 202}
+        - {x: -205, y: 103}
+        - {x: -205, y: -30}
+        - {x: -155, y: -141}
+        - {x: -40, y: -202}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74eb80e2c91b0ce4b8e425706d4ab562
+      internalID: 184461894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nitrogen
+      rect:
+        serializedVersion: 2
+        x: 1610
+        y: 1611
+        width: 392
+        height: 435
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 196, y: -127.5}
+        - {x: 196, y: -26.5}
+        - {x: 151, y: 105.5}
+        - {x: 24, y: 171.5}
+        - {x: -39, y: 172.5}
+        - {x: -196, y: 74.5}
+        - {x: -196, y: -26.5}
+        - {x: -154, y: -155.5}
+        - {x: -38, y: -217.5}
+        - {x: 43, y: -217.5}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a77c2738edb75d044b8ccd2478cb5d59
+      internalID: 1540622127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bond1
+      rect:
+        serializedVersion: 2
+        x: 1289
+        y: 1185
+        width: 377
+        height: 332
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 188.5, y: -66}
+        - {x: 188.5, y: 102}
+        - {x: 108.5, y: 166}
+        - {x: 33.5, y: 166}
+        - {x: -188.5, y: 59}
+        - {x: -188.5, y: -85}
+        - {x: -119.5, y: -166}
+        - {x: -40.5, y: -166}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b0f6d55ac713834ea4007648cf68ddb
+      internalID: -910375787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ProfessorPaws
+      rect:
+        serializedVersion: 2
+        x: 1008
+        y: 0
+        width: 1040
+        height: 1025
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 520, y: -321.5}
+        - {x: 520, y: -78.5}
+        - {x: 443, y: 157.5}
+        - {x: 353, y: 28.5}
+        - {x: 362, y: 453}
+        - {x: 324, y: 512.5}
+        - {x: 171, y: 423.5}
+        - {x: -60, y: 512.5}
+        - {x: -180, y: 512.5}
+        - {x: -168, y: 343.5}
+        - {x: -452, y: 378.5}
+        - {x: -512, y: 269}
+        - {x: -509, y: 145.5}
+        - {x: -360, y: 104.5}
+        - {x: -332, y: -302.5}
+        - {x: -206, y: -280.5}
+        - {x: -223, y: -512.5}
+        - {x: 334, y: -512.5}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2ff16d4abbbab34e986424cdc68d33d
+      internalID: 704073251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KittyScientist
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1042
+        width: 630
+        height: 1006
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 328, y: -359}
+        - {x: 328, y: -138}
+        - {x: 113, y: -2}
+        - {x: 231, y: 99}
+        - {x: 172, y: 330}
+        - {x: 204, y: 408}
+        - {x: 175, y: 512}
+        - {x: 102.723145, y: 511.99988}
+        - {x: 29, y: 467}
+        - {x: -142, y: 467}
+        - {x: -213.62729, y: 512}
+        - {x: -318, y: 512}
+        - {x: -284, y: 327}
+        - {x: -328, y: 188}
+        - {x: -328, y: 86}
+        - {x: -215, y: 2}
+        - {x: -306, y: -164}
+        - {x: -185, y: -512}
+        - {x: 84, y: -512}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c4b2d0c4c9a64f447983fcf569563838
+      internalID: -1895899139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: fb52f8ef915c36743b41d99e8070108a
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Bond1: -910375787
+      Carbon: 184461894
+      DrMittens: -718142578
+      Hydrogen: -811783910
+      KittyScientist: -1895899139
+      Nitrogen: 1540622127
+      Oxygen: -819516259
+      ProfessorPaws: 704073251
+      kitty chem icons atlas_6: -942119308
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

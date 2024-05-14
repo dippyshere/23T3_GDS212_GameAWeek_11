@@ -47,6 +47,7 @@ MonoBehaviour:
   requiredCompound:
     name: 0
   loadBackgroundScene: 1
+  winDialogue: []
   winScreen: {fileID: 0}
   transitionAnimator: {fileID: 0}
   transitionIconAnimator: {fileID: 0}

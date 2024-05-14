@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AtomManager : MonoBehaviour
 {
@@ -37,8 +38,6 @@ public class AtomManager : MonoBehaviour
             //hingeJoints.Add(null);
             connections.Add(null);
         }
-        preview = Instantiate(previewPrefab, transform.position, Quaternion.identity);
-        preview.SetActive(false);
     }
 
     private void Start()
@@ -46,7 +45,9 @@ public class AtomManager : MonoBehaviour
         SnapToGrid();
         Invoke("SnapToGrid", 0.01f);
         outlineDefaultThickness = outline.OutlineWidth;
-        preview = Instantiate(previewPrefab, transform.position, Quaternion.identity);
+        preview = Instantiate(previewPrefab, transform);
+        preview.transform.SetParent(null);
+        preview.transform.rotation = Quaternion.identity;
         preview.SetActive(false);
     }
 
@@ -260,6 +261,16 @@ public class AtomManager : MonoBehaviour
                     spawnedDropEffect = Instantiate(playerController.successfulDropEffect, transform);
                     spawnedDropEffect.transform.localScale = new Vector3(4.25f, 4.25f, 4.25f);
                     break;
+            }
+            DialogueManager dialogueManager = FindAnyObjectByType<DialogueManager>();
+            LevelManager levelManager = FindAnyObjectByType<LevelManager>();
+            if (levelManager != null)
+            {
+                levelManager.CheckWinCondition();
+            }
+            if (dialogueManager != null)
+            {
+                dialogueManager.AdvancePlacement();
             }
         }
     }

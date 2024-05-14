@@ -13,6 +13,6 @@ public class DialogueTrigger : MonoBehaviour
 
     public void TriggerDialogue()
     {
-        FindObjectOfType<DialogueManager>().StartMultipleDialogue(dialogue);
+        FindAnyObjectByType<DialogueManager>().StartMultipleDialogue(dialogue);
     }
 }

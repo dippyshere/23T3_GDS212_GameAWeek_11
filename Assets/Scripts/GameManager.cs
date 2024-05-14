@@ -6,32 +6,35 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject optionsPanel;
+    public Button startButton;
+    public GameObject quitButton;
     public Animator transitionAnimator;
     public Animator transitionIconAnimator;
 
-    public void Start()
+    public IEnumerator Start()
     {
-
-        // Ensure the options panel is initially inactive
-        optionsPanel.SetActive(false);
+        if (Application.platform == RuntimePlatform.WebGLPlayer)
+        {
+            quitButton.SetActive(false);
+        }
+        yield return null;
+        yield return null;
+        yield return new WaitForEndOfFrame();
+        transitionAnimator.SetTrigger("End");
+        transitionIconAnimator.SetTrigger("End");
     }
 
     public void StartIntro()
     {
+        startButton.interactable = false;
         StartCoroutine(LoadLevel("IntroScene"));
     }
 
     public void StartGame()
     {
         // Load the game scene (change "GameScene" to your actual scene name)
+        startButton.interactable = false;
         StartCoroutine(LoadLevel("Explanation Scene"));
-    }
-
-    public void OpenOptions()
-    {
-        // Show the options panel
-        optionsPanel.SetActive(true);
     }
 
     public void QuitGame()
